@@ -23,11 +23,17 @@ public partial class Plugin : BaseUnityPlugin
     internal static bool Debug { get; private set; } = true;
     
     private const int NetGameStateViewID = 9969;
+    
+    private const string CompatibleVersion = "1.28.a";
 
     private void Awake()
     {
         Log = Logger;
         Log.LogInfo($"Plugin {Name} is loaded!");
+
+        if (Application.version.Trim('.') != CompatibleVersion)
+            Log.LogColorW($"This plugin is only compatible with v.{CompatibleVersion}. The library may not work correctly."
+                          + $" Current game version: {Application.version}");
         
         // === Apply harmony patches
         var harmony = new Harmony("com.github.tehUsual.NetGameState");
