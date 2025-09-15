@@ -1,0 +1,7 @@
+{
+  "name": "Net_Game_State",
+  "version_number": "0.1.0",
+  "website_url": "",
+  "description": "A utility library for PEAK that tracks player connectivity, level and scene progression, and world state",
+  "dependencies": []
+}
