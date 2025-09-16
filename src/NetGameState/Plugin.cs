@@ -1,6 +1,5 @@
 ﻿using System;
 using BepInEx;
-using BepInEx.Logging;
 using ConsoleTools.Patches;
 using ConsoleTools;
 using HarmonyLib;
@@ -29,7 +28,7 @@ public partial class Plugin : BaseUnityPlugin
     
     private const int NetGameStateViewID = 9969;
     
-    private const string CompatibleVersion = "1.28.a";
+    private const string CompatibleVersion = "1.29.a";
 
     private void Awake()
     {
