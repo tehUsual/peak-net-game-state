@@ -67,6 +67,9 @@ public static class MapObjectPaths
     public const string SubBioAlpineSpiky  = $"{SegAlpine}/Spiky";
     public const string SubBioAlpineGeyserHell = $"{SegAlpine}/GeyserHell";
 
+    // --- Peak ---
+    public const string PeakFlagPole = $"{SegPeak}/Flag_planted_seagull/Flag Pole";
+    
     
     // --- Helper Methods ---
     public static bool TryGetBiomeRoot(Zone biome, out string biomeRoot)

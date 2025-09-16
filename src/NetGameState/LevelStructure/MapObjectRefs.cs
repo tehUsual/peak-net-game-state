@@ -10,7 +10,7 @@ namespace NetGameState.LevelStructure;
 public static class MapObjectRefs
 {
     private static int _initCount;
-    private const int TotalTransformFields = 39;    // could not get reflection to work
+    private const int TotalTransformFields = 40;    // could not get reflection to work
     
     // --- Biomes ---
     public static Transform? BioShore { get; private set; }
@@ -64,8 +64,11 @@ public static class MapObjectRefs
     public static Transform? SubBioAlpineLava { get; private set; }
     public static Transform? SubBioAlpineSpiky { get; private set; }
     public static Transform? SubBioAlpineGeyserHell { get; private set; }
-
     
+    // --- Peak ---
+    public static Transform? PeakFlagPole { get; private set; }
+
+
     static MapObjectRefs()
     {
         // TODO: On run ended
@@ -131,6 +134,9 @@ public static class MapObjectRefs
         SubBioAlpineSpiky = Find(MapObjectPaths.SubBioAlpineSpiky);
         SubBioAlpineGeyserHell = Find(MapObjectPaths.SubBioAlpineGeyserHell);
         
+        // Peak
+        PeakFlagPole = Find(MapObjectPaths.PeakFlagPole);
+        
         // Log init status
         if (_initCount == TotalTransformFields)
             Plugin.Log.LogColorS($"All map object references initialized: {_initCount}/{TotalTransformFields}");
@@ -191,6 +197,8 @@ public static class MapObjectRefs
         SubBioAlpineLava = null;
         SubBioAlpineSpiky = null;
         SubBioAlpineGeyserHell = null;
+
+        PeakFlagPole = null;
     }
 
     private static Transform? Find(string path)

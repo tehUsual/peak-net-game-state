@@ -62,8 +62,8 @@ public partial class Plugin : BaseUnityPlugin
         CallbackTests.Init();
         
         // === Utilities
-        GameStateEvents.OnRunStartLoadComplete += OnRunStartLoadComplete;
-        GameStateEvents.OnAirportLoaded += OnLobbyLoaded;
+        //GameStateEvents.OnRunStartLoadComplete += OnRunStartLoadComplete;
+        //GameStateEvents.OnAirportLoaded += OnLobbyLoaded;
     }
     
     private void Start()
@@ -80,7 +80,7 @@ public partial class Plugin : BaseUnityPlugin
         }
         
         // Master only
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && GameStateEvents.IsRunActive)
         {
             if (Input.GetKeyDown(KeyCode.Keypad1))
                 TeleportHandler.TeleportToCampfire(Util.Campfire.Shore);
@@ -90,6 +90,8 @@ public partial class Plugin : BaseUnityPlugin
                 TeleportHandler.TeleportToCampfire(Util.Campfire.AlpineMesa);
             if (Input.GetKeyDown(KeyCode.Keypad4))
                 TeleportHandler.TeleportToCampfire(Util.Campfire.Caldera);
+            if (Input.GetKeyDown(KeyCode.Keypad5))
+                TeleportHandler.TeleportToCampfire(Util.Campfire.PeakFlagpole);
         }
     }
 
@@ -109,17 +111,5 @@ public partial class Plugin : BaseUnityPlugin
     
     private void OnDestroy()
     {
-    }
-
-
-
-    private void OnRunStartLoadComplete(string sceneName, int ascent)
-    {
-        TeleportHandler.Init();
-    }
-
-    private void OnLobbyLoaded()
-    {
-        TeleportHandler.Reset();
     }
 }

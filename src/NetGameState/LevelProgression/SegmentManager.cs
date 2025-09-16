@@ -29,6 +29,8 @@ public static class SegmentManager
     public static SegmentInfo PreviousSegmentInfo { get; set; } =
         new(CurrentChapter, CurrentZone, CurrentSubZone);
 
+    public static bool IsAlpine { get; private set; }
+
 
     static SegmentManager()
     {
@@ -50,6 +52,8 @@ public static class SegmentManager
         {
             CurrentRunSegments[i] = new SegmentInfo(Chapter.Unknown, Zone.Unknown, SubZone.Unknown);
         }
+        
+        IsAlpine = false;
     }
 
     internal static void SetCurrentSegment(Segment segment)
@@ -79,6 +83,9 @@ public static class SegmentManager
             Zone zone = SegmentMapper.GetZoneFromChapter(chapter);
             SubZone subZone = SegmentMapper.GetSubZoneFromZone(zone);
             CurrentRunSegments[pair.index] = new SegmentInfo(chapter, zone, subZone);
+
+            if (zone == Zone.Alpine)
+                IsAlpine = true;
         }
     }
 }
