@@ -19,7 +19,7 @@ internal enum Campfire
 
 internal static class TeleportHandler
 {
-    private static Vector3 _offset = new(0, 10, 0);
+    private static readonly Vector3 Offset = new(0, 10, 0);
 
     internal static void TeleportToCampfire(Campfire campfire)
     {
@@ -39,7 +39,7 @@ internal static class TeleportHandler
         if (!ReferenceEquals(campfireTarget, null))
         {
             foreach (var character in PlayerHandler.GetAllPlayerCharacters())
-                character.photonView.RPC("WarpPlayerRPC", RpcTarget.All, campfireTarget.position + _offset, false);
+                character.photonView.RPC("WarpPlayerRPC", RpcTarget.All, campfireTarget.position + Offset, false);
         }
     }
 }

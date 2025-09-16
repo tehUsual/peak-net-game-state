@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ConsoleTools;
+using NetGameState.Events;
 using NetGameState.LevelStructure;
 using UnityEngine;
 
@@ -37,7 +38,6 @@ public static class SegmentMapper
 
     public static Zone GetZoneFromChapter(Chapter chapter)
     {
-         // TODO: If GameStateEvents.isRunStarted || grab from already init and stored
          switch (chapter)
          {
              case Chapter.One:
@@ -45,10 +45,8 @@ public static class SegmentMapper
              case Chapter.Two:
                  return Zone.Tropics;
              case Chapter.Three:
-                 //if (GameObject.Find(MapObjectPaths.BioAlpine)?.activeSelf ?? false)
                  if (MapObjectRefs.BioAlpine?.gameObject.activeSelf ?? false)
                      return Zone.Alpine;
-                 //if (GameObject.Find(MapObjectPaths.BioMesa)?.activeSelf ?? false)
                  if (MapObjectRefs.BioMesa?.gameObject.activeSelf ?? false)
                      return Zone.Mesa;
                  break;
@@ -111,6 +109,10 @@ public static class SegmentMapper
 
     public static SubZone GetSubZoneFromZone(Zone zone)
     {
+        if (!GameStateEvents.IsRunActive)
+            return SubZone.Unknown;
+        
+        // TODO: Add cache (use segment manager)
         return zone switch
         {
             Zone.Shore => GetActiveSubZone(MapObjectRefs.SegShore, SubZoneHelper.ShoreSubZones, "Shore"),
