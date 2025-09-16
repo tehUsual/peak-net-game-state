@@ -6,6 +6,7 @@ using ConsoleTools;
 using HarmonyLib;
 using NetGameState.Events;
 using NetGameState.Listeners;
+using NetGameState.Logging;
 using NetGameState.Network;
 using NetGameState.Patches;
 using NetGameState.Tests;
@@ -19,8 +20,12 @@ namespace NetGameState;
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
 {
-    internal static ManualLogSource Log { get; private set; } = null!;
-    internal static bool Debug { get; private set; } = true;
+    //internal static ManualLogSource Log { get; private set; } = null!;
+    internal static bool Debug { get; private set; } = false;
+
+    private static GameObject? _netGameStateTracker;
+    
+    public static Plugin Instance { get; private set; } = null!;
     
     private const int NetGameStateViewID = 9969;
     
@@ -28,12 +33,14 @@ public partial class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
-        Log = Logger;
-        Log.LogInfo($"Plugin {Name} is loaded!");
+        Instance = this;
+        
+        LogProvider.Log = Logger;
+        LogProvider.Log.LogInfo($"Plugin {Name} is loaded!");
 
         if (Application.version.Trim('.') != CompatibleVersion)
-            Log.LogColorW($"This plugin is only compatible with v.{CompatibleVersion}. The library may not work correctly."
-                          + $" Current game version: {Application.version}");
+            LogProvider.Log.LogColorW($"This plugin is only compatible with v{CompatibleVersion}. The library may not work correctly."
+                          + $" Current game version: v{Application.version}");
         
         // === Apply harmony patches
         var harmony = new Harmony("com.github.tehUsual.NetGameState");
@@ -46,37 +53,51 @@ public partial class Plugin : BaseUnityPlugin
         harmony.PatchAll(typeof(RunManagerPatches));
         harmony.PatchAll(typeof(SteamLobbyHandlerPatches));
         
-        harmony.PatchAll(typeof(ConsoleLogListenerPatches));
+        
+#if NETGAMESTATE_STANDALONE
+        if (Debug)
+            harmony.PatchAll(typeof(ConsoleLogListenerPatches));
+#endif
         
         // === Create game objects
         CreatePersistentGameObjects();
         
-        // === Configure console
-        ConsoleConfig.Register(Name);
-        ConsoleConfig.SetLogging(Name, Debug);
-        ConsoleConfig.ShowUnityLogs = false;
-        ConsoleConfig.SetDefaultSourceColor(ConsoleColor.DarkCyan);
-        ConsoleConfig.SetDefaultCallerColor(ConsoleColor.DarkYellow);
+#if NETGAMESTATE_STANDALONE
+        if (Debug)
+        {
+            // === Configure console
+            ConsoleConfig.Register(Name);
+            ConsoleConfig.SetLogging(Name, Debug);
+            ConsoleConfig.ShowUnityLogs = false;
+            ConsoleConfig.SetDefaultSourceColor(ConsoleColor.DarkCyan);
+            ConsoleConfig.SetDefaultCallerColor(ConsoleColor.DarkYellow);    
+        }
+#endif 
+      
         
-        // === Tests
-        CallbackTests.Init();
+#if NETGAMESTATE_STANDALONE
+        if (Debug)
+        {
+            // === Tests
+            CallbackTests.Init();    
+        }
+#endif
         
-        // === Utilities
-        //GameStateEvents.OnRunStartLoadComplete += OnRunStartLoadComplete;
-        //GameStateEvents.OnAirportLoaded += OnLobbyLoaded;
+        LogProvider.Log.LogColor($"Plugin {Name} load complete!");
     }
     
-    private void Start()
-    {
-    }
 
+#if NETGAMESTATE_STANDALONE
     private void Update()
     {
+        if (!Debug)
+            return;
+        
         // Toggle unity console
         if (Input.GetKeyDown(KeyCode.F5))
         {
             ConsoleConfig.ShowUnityLogs = !ConsoleConfig.ShowUnityLogs;
-            Log.LogColor($"Unity console logs {(ConsoleConfig.ShowUnityLogs ? "enabled" : "disabled")}");
+            LogProvider.Log?.LogColor($"Unity console logs {(ConsoleConfig.ShowUnityLogs ? "enabled" : "disabled")}");
         }
         
         // Master only
@@ -94,6 +115,7 @@ public partial class Plugin : BaseUnityPlugin
                 TeleportHandler.TeleportToCampfire(Util.Campfire.PeakFlagpole);
         }
     }
+#endif
 
     private static void CreatePersistentGameObjects()
     {
@@ -101,15 +123,19 @@ public partial class Plugin : BaseUnityPlugin
         if (GameObject.Find("NetGameState_Tracker")?.activeInHierarchy ?? false)
             return;
         
-        var trackerObj = new GameObject("NetGameState_Tracker");
-        trackerObj.AddComponent<PlayerReadyTracker>();
-        trackerObj.AddComponent<PhotonCallbacks>();
-        var pv = trackerObj.AddComponent<PhotonView>();
+        _netGameStateTracker = new GameObject("NetGameState_Tracker");
+        _netGameStateTracker.AddComponent<PlayerReadyTracker>();
+        _netGameStateTracker.AddComponent<PhotonCallbacks>();
+        var pv = _netGameStateTracker.AddComponent<PhotonView>();
         pv.ViewID = NetGameStateViewID;
-        DontDestroyOnLoad(trackerObj);
+        DontDestroyOnLoad(_netGameStateTracker);
     }
     
     private void OnDestroy()
     {
+        CallbackTests.Reset();
+        if (!ReferenceEquals(_netGameStateTracker, null))
+            Destroy(_netGameStateTracker);
     }
 }
+

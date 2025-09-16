@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ConsoleTools;
 using NetGameState.Events;
 using NetGameState.LevelStructure;
+using NetGameState.Logging;
 using UnityEngine;
 
 namespace NetGameState.Level.Helpers;
@@ -93,7 +94,7 @@ public static class SegmentMapper
     {
         if (ReferenceEquals(root, null))
         {
-            Plugin.Log.LogColorW($"Could not find '{zoneName}' Segment");
+            LogProvider.Log?.LogColorW($"Could not find '{zoneName}' Segment");
             return SubZone.Unknown;
         }
 
@@ -103,15 +104,12 @@ public static class SegmentMapper
                 return (SubZone)Convert.ToInt32(subZone);
         }
         
-        Plugin.Log.LogColorW($"Could not find sub-zone for '{zoneName}'");
+        LogProvider.Log?.LogColorW($"Could not find sub-zone for '{zoneName}'");
         return SubZone.Unknown;
     }
 
     public static SubZone GetSubZoneFromZone(Zone zone)
     {
-        if (!GameStateEvents.IsRunActive)
-            return SubZone.Unknown;
-        
         // TODO: Add cache (use segment manager)
         return zone switch
         {

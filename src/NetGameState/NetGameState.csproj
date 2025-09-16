@@ -9,6 +9,8 @@
     <AssemblyTitle>NetGameState</AssemblyTitle>
     <!-- This is the version number of your mod. -->
     <Version>0.1.0</Version>
+	
+	<DefineConstants>NETGAMESTATE_STANDALONE</DefineConstants>
   </PropertyGroup>
 
   <!-- NuGet metadata -->

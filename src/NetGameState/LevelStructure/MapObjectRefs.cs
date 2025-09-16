@@ -4,6 +4,7 @@ using ConsoleTools;
 using UnityEngine;
 using System.Linq;
 using NetGameState.Events;
+using NetGameState.Logging;
 
 namespace NetGameState.LevelStructure;
 
@@ -139,9 +140,9 @@ public static class MapObjectRefs
         
         // Log init status
         if (_initCount == TotalTransformFields)
-            Plugin.Log.LogColorS($"All map object references initialized: {_initCount}/{TotalTransformFields}");
+            LogProvider.Log?.LogColorS($"All map object references initialized: {_initCount}/{TotalTransformFields}");
         else
-            Plugin.Log.LogColorW($"Not all map object references initialized: {_initCount}/{TotalTransformFields}");
+            LogProvider.Log?.LogColorW($"Not all map object references initialized: {_initCount}/{TotalTransformFields}");
     }
 
     /// <summary>
@@ -205,7 +206,7 @@ public static class MapObjectRefs
     {
         Transform? transform = GameObject.Find(path)?.transform;
         if (ReferenceEquals(transform, null))
-            Plugin.Log.LogColor($"Could not find transform for: {path}");
+            LogProvider.Log?.LogColor($"Could not find transform for: {path}");
         else
             _initCount++;
         

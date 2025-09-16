@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using ConsoleTools;
 using NetGameState.Events;
+using NetGameState.Logging;
 using Photon.Pun;
 using UnityEngine;
 
@@ -67,7 +68,7 @@ public class PlayerReadyTracker : MonoBehaviourPun
         }
         else
         {
-            Plugin.Log.LogColorW($"Could not find player with actor number {actorNumber}");
+            LogProvider.Log?.LogColorW($"Could not find player with actor number {actorNumber}");
             return;
         }
         
@@ -105,7 +106,7 @@ public class PlayerReadyTracker : MonoBehaviourPun
             }
             else
             {
-                Plugin.Log.LogColorW($"Could not resolve PlayerHandler for actor number {p.ActorNumber}");
+                LogProvider.Log?.LogColorW($"Could not resolve PlayerHandler for actor number {p.ActorNumber}");
             }
                 
             _loadStartTimes[p.ActorNumber] = float.MaxValue;
