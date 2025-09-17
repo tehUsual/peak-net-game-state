@@ -7,6 +7,8 @@ public enum SubZone
 {
     Unknown = -1,
     
+    Any = 0,
+    
     // Shore 10-29
     Shore_Default = 10,
     Shore_SnakeBeach = 11,
@@ -46,6 +48,7 @@ public enum SubZone
 public enum ShoreZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Shore_Default,
     SnakeBeach = SubZone.Shore_SnakeBeach,
     RedBeach = SubZone.Shore_RedBeach,
@@ -57,6 +60,7 @@ public enum ShoreZone
 public enum TropicsZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Tropics_Default,
     Lava = SubZone.Tropics_Lava,
     Pillars = SubZone.Tropics_Pillars,
@@ -69,6 +73,7 @@ public enum TropicsZone
 public enum AlpineZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Alpine_Default,
     Lava = SubZone.Alpine_Lava,
     Spiky = SubZone.Alpine_Spiky,
@@ -78,23 +83,27 @@ public enum AlpineZone
 public enum MesaZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Mesa_Default
 }
 
 public enum CalderaZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Caldera_Default
 }
 
 public enum KilnZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Kiln_Default
 }
 
 public enum PeakZone
 {
     Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
     Default = SubZone.Peak_Default
 }

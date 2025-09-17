@@ -6,6 +6,7 @@ namespace NetGameState.Level;
 public enum Zone
 {
     Unknown = -1,
+    Any = 0,
     Shore,
     Tropics,
     Alpine,

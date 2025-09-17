@@ -126,6 +126,9 @@ public static class SegmentMapper
     
     public static Zone GetZoneFromSubZone(SubZone subZone)
     {
+        if (subZone is SubZone.Unknown or SubZone.Any)
+            return Zone.Unknown;
+        
         return subZone switch
         {
             >= SubZone.Shore_Default and < SubZone.Tropics_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Shore,
