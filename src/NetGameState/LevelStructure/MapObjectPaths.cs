@@ -15,14 +15,16 @@ public static class MapObjectPaths
     
     // --- Biome Types ---
     public const string BioShore = $"{Biome1}/Beach";
-    public const string BioTropics = $"{Biome2}/Jungle";
-    public const string BioAlpine = $"{Biome3}/Snow";
-    public const string BioMesa = $"{Biome3}/Desert";
+    public const string BioTropics = $"{Biome2}/Tropics";
+    public const string BioRoots = $"{Biome2}/Roots";
+    public const string BioAlpine = $"{Biome3}/Alpine";
+    public const string BioMesa = $"{Biome3}/Mesa";
     public const string BioVolcano = $"{Biome4}/Volcano";
     
     // --- Segments ---
     public const string SegShore = $"{BioShore}/Beach_Segment";
     public const string SegTropics = $"{BioTropics}/Jungle_Segment";
+    public const string SegRoots = $"{BioRoots}/Roots Segment";                         // space?..
     public const string SegAlpine = $"{BioAlpine}/Snow_Segment";
     public const string SegMesa =  $"{BioMesa}/Desert_Segment";
     public const string SegCaldera = $"{BioVolcano}/Caldera_Segment";
@@ -32,15 +34,17 @@ public static class MapObjectPaths
     // --- Campfire Areas ---
     public const string CampAreaShore = $"{BioShore}/Beach_Campfire";
     public const string CampAreaTropics = $"{BioTropics}/Jungle_Campfire";
+    public const string CampAreaRoots = $"{BioRoots}/Roots_Campfire";
     public const string CampAreaAlpine = $"{BioAlpine}/Snow_Campfire";
-    public const string CampAreaMesa =  $"{BioMesa}/Desert_Campfire/Snow_Campfire";
+    public const string CampAreaMesa =  $"{BioMesa}/Desert_Campfire/Snow_Campfire";     // snow in desert campfire
     public const string CampAreaCaldera = $"{BioVolcano}/Volcano_Campfire";
     
     // --- Campfire ---
     public const string CampfireShore = $"{CampAreaShore}/Campfire/Campfire";
     public const string CampfireTropics = $"{CampAreaTropics}/Campfire/Campfire";
+    public const string CampfireRoots = $"{CampAreaTropics}/Campfire"; // WARN: this is a campfire spawner and not a campfire obj
     public const string CampfireAlpine = $"{CampAreaAlpine}/Campfire/Campfire";
-    public const string CampfireMesa = $"{CampAreaMesa}/Campfire/Campfire";
+    public const string CampfireMesa = $"{CampAreaMesa}/Campfire"; // WARN: this is a campfire spawner and not a campfire obj
     public const string CampfireCaldera = $"{CampAreaCaldera}/Campfire/Campfire-Kiln";
     
     
@@ -78,6 +82,7 @@ public static class MapObjectPaths
         {
             case Zone.Shore: biomeRoot = BioShore; return true;
             case Zone.Tropics: biomeRoot = BioTropics; return true;
+            case Zone.Roots: biomeRoot = BioRoots; return true;
             case Zone.Alpine: biomeRoot = BioAlpine; return true;
             case Zone.Mesa: biomeRoot = BioMesa; return true;
             case Zone.Caldera: biomeRoot = BioVolcano; return true;
@@ -93,6 +98,7 @@ public static class MapObjectPaths
         {
             case Zone.Shore: segmentRoot = SegShore; return true;
             case Zone.Tropics: segmentRoot = SegTropics; return true;
+            case Zone.Roots: segmentRoot = SegRoots; return true;
             case Zone.Alpine: segmentRoot = SegAlpine; return true;
             case Zone.Mesa: segmentRoot = SegMesa; return true;
             case Zone.Caldera: segmentRoot = SegCaldera; return true;
@@ -108,6 +114,7 @@ public static class MapObjectPaths
         {
             case Zone.Shore: campAreaRoot = CampAreaShore; return true;
             case Zone.Tropics: campAreaRoot = CampAreaTropics; return true;
+            case Zone.Roots: campAreaRoot = CampAreaRoots; return true;
             case Zone.Alpine: campAreaRoot = CampAreaAlpine; return true;
             case Zone.Mesa: campAreaRoot = CampAreaMesa; return true;
             case Zone.Caldera: campAreaRoot = CampAreaCaldera; return true;
@@ -121,8 +128,9 @@ public static class MapObjectPaths
         {
             case Zone.Shore: campfireRoot = CampfireShore; return true;
             case Zone.Tropics: campfireRoot = CampfireTropics; return true;
+            case Zone.Roots: campfireRoot = CampfireRoots; return true;     // WARN: this is a campfire spawner and not a campfire obj
             case Zone.Alpine: campfireRoot = CampfireAlpine; return true;
-            case Zone.Mesa: campfireRoot = CampfireMesa; return true;
+            case Zone.Mesa: campfireRoot = CampfireMesa; return true;       // WARN: this is a campfire spawner and not a campfire obj
             case Zone.Caldera: campfireRoot = CampfireCaldera; return true;
             default: campfireRoot = ""; return false;
         }

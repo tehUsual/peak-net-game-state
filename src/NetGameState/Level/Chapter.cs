@@ -7,7 +7,7 @@ public enum Chapter
 {
     Unknown = -1,
     One,            // Shore
-    Two,            // Tropics
+    Two,            // Tropics / Roots
     Three,          // Alpine / Mesa
     Four,           // Caldera
     Five,           // Kiln

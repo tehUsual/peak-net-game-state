@@ -107,12 +107,17 @@ public static class SegmentManager
         return (zone) switch
         {
             Zone.Shore => MapObjectRefs.SegShore,
+            
             Zone.Tropics => MapObjectRefs.SegTropics,
+            Zone.Roots => MapObjectRefs.SegRoots,
+            
             Zone.Alpine => MapObjectRefs.SegAlpine,
             Zone.Mesa => MapObjectRefs.SegMesa,
+            
             Zone.Caldera => MapObjectRefs.SegCaldera,
             Zone.Kiln => MapObjectRefs.SegKiln,
             Zone.Peak => MapObjectRefs.SegPeak,
+            
             _ => null
         };
     }

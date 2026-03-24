@@ -44,7 +44,11 @@ public static class SegmentMapper
              case Chapter.One:
                  return Zone.Shore;
              case Chapter.Two:
-                 return Zone.Tropics;
+                 if (MapObjectRefs.BioTropics?.gameObject.activeSelf ?? false)
+                     return Zone.Tropics;
+                 if (MapObjectRefs.BioRoots?.gameObject.activeSelf ?? false)
+                     return Zone.Roots;
+                 break;
              case Chapter.Three:
                  if (MapObjectRefs.BioAlpine?.gameObject.activeSelf ?? false)
                      return Zone.Alpine;
@@ -65,12 +69,17 @@ public static class SegmentMapper
     public static Chapter GetChapterFromZone(Zone zone) => zone switch
     {
         Zone.Shore => Chapter.One,
+        
         Zone.Tropics => Chapter.Two,
+        Zone.Roots => Chapter.Two,
+        
         Zone.Alpine => Chapter.Three,
         Zone.Mesa => Chapter.Three,
+        
         Zone.Caldera => Chapter.Four,
         Zone.Kiln => Chapter.Five,
         Zone.Peak => Chapter.Six,
+        
         _ => Chapter.Unknown
     };
 
@@ -79,12 +88,18 @@ public static class SegmentMapper
         switch (zone)
         {
             case Zone.Shore: biomeType = Biome.BiomeType.Shore; return true;
+            
             case Zone.Tropics: biomeType = Biome.BiomeType.Tropics; return true;
+            case Zone.Roots: biomeType = Biome.BiomeType.Roots; return true;
+            
             case Zone.Alpine: biomeType = Biome.BiomeType.Alpine; return true;
             case Zone.Mesa: biomeType = Biome.BiomeType.Mesa; return true;
+            
             case Zone.Caldera: biomeType = Biome.BiomeType.Volcano; return true;
             case Zone.Kiln: biomeType = Biome.BiomeType.Volcano; return true;
+            
             case Zone.Peak: biomeType = Biome.BiomeType.Peak; return true;
+            
             default: biomeType = null; return false;
         }
     }
@@ -115,6 +130,7 @@ public static class SegmentMapper
         {
             Zone.Shore => GetActiveSubZone(MapObjectRefs.SegShore, SubZoneHelper.ShoreSubZones, "Shore"),
             Zone.Tropics => GetActiveSubZone(MapObjectRefs.SegTropics, SubZoneHelper.TropicsSubZones, "Tropics"),
+            Zone.Roots => SubZone.Roots_Default,
             Zone.Alpine => GetActiveSubZone(MapObjectRefs.SegAlpine, SubZoneHelper.AlpineSubZones, "Alpine"),
             Zone.Mesa => SubZone.Mesa_Default,
             Zone.Caldera => SubZone.Caldera_Default,
@@ -132,11 +148,16 @@ public static class SegmentMapper
         return subZone switch
         {
             >= SubZone.Shore_Default and < SubZone.Tropics_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Shore,
-            >= SubZone.Tropics_Default and < SubZone.Alpine_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Tropics,
+            
+            >= SubZone.Tropics_Default and < SubZone.Roots_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Tropics,
+            >= SubZone.Roots_Default and < SubZone.Alpine_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Roots,
+            
             >= SubZone.Alpine_Default and < SubZone.Mesa_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Alpine,
             >= SubZone.Mesa_Default and < SubZone.Caldera_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Mesa,
+            
             >= SubZone.Caldera_Default and < SubZone.Kiln_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Kiln,
             >= SubZone.Kiln_Default and < SubZone.Peak_Default when Enum.IsDefined(typeof(SubZone), subZone) => Zone.Peak,
+            
             _ => Zone.Unknown
         };
     }
@@ -147,6 +168,7 @@ public static class SegmentMapper
         {
             case Zone.Shore: return ((ShoreZone)subZone).ToString();
             case Zone.Tropics: return ((TropicsZone)subZone).ToString();
+            case Zone.Roots: return ((RootsZone)subZone).ToString();
             case Zone.Alpine: return ((AlpineZone)subZone).ToString();
             case Zone.Mesa: return ((MesaZone)subZone).ToString();
             case Zone.Caldera: return ((CalderaZone)subZone).ToString();

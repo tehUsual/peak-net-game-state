@@ -11,11 +11,12 @@ namespace NetGameState.LevelStructure;
 public static class MapObjectRefs
 {
     private static int _initCount;
-    private const int TotalTransformFields = 40;    // could not get reflection to work
+    private const int TotalTransformFields = 44;    // TODO: could not get reflection to work, manually update
     
     // --- Biomes ---
     public static Transform? BioShore { get; private set; }
     public static Transform? BioTropics { get; private set; }
+    public static Transform? BioRoots { get; private set; }
     public static Transform? BioAlpine { get; private set; }
     public static Transform? BioMesa { get; private set; }
     public static Transform? BioVolcano { get; private set; }
@@ -23,6 +24,7 @@ public static class MapObjectRefs
     // --- Segments ---
     public static Transform? SegShore { get; private set; }
     public static Transform? SegTropics { get; private set; }
+    public static Transform? SegRoots { get; private set; }
     public static Transform? SegAlpine { get; private set; }
     public static Transform? SegMesa { get; private set; }
     public static Transform? SegCaldera { get; private set; }
@@ -32,6 +34,7 @@ public static class MapObjectRefs
     // --- Campfire Areas ---
     public static Transform? CampAreaShore { get; private set; }
     public static Transform? CampAreaTropics { get; private set; }
+    public static Transform? CampAreaRoots { get; private set; }
     public static Transform? CampAreaAlpine { get; private set; }
     public static Transform? CampAreaMesa { get; private set; }
     public static Transform? CampAreaCaldera { get; private set; }
@@ -39,6 +42,7 @@ public static class MapObjectRefs
     // --- Campfires ---
     public static Transform? CampfireShore { get; private set; }
     public static Transform? CampfireTropics { get; private set; }
+    public static Transform? CampfireRoots { get; private set; }
     public static Transform? CampfireAlpine { get; private set; }
     public static Transform? CampfireMesa { get; private set; }
     public static Transform? CampfireCaldera { get; private set; }
@@ -85,6 +89,7 @@ public static class MapObjectRefs
         // Biomes
         BioShore = Find(MapObjectPaths.BioShore);
         BioTropics = Find(MapObjectPaths.BioTropics);
+        BioRoots = Find(MapObjectPaths.BioRoots);
         BioAlpine = Find(MapObjectPaths.BioAlpine);
         BioMesa = Find(MapObjectPaths.BioMesa);
         BioVolcano = Find(MapObjectPaths.BioVolcano);
@@ -92,6 +97,7 @@ public static class MapObjectRefs
         // Segments
         SegShore = Find(MapObjectPaths.SegShore);
         SegTropics = Find(MapObjectPaths.SegTropics);
+        SegRoots = Find(MapObjectPaths.SegRoots);
         SegAlpine = Find(MapObjectPaths.SegAlpine);
         SegMesa = Find(MapObjectPaths.SegMesa);
         SegCaldera = Find(MapObjectPaths.SegCaldera);
@@ -101,6 +107,7 @@ public static class MapObjectRefs
         // Campfire Areas
         CampAreaShore = Find(MapObjectPaths.CampAreaShore);
         CampAreaTropics = Find(MapObjectPaths.CampAreaTropics);
+        CampAreaRoots = Find(MapObjectPaths.CampAreaRoots);
         CampAreaAlpine = Find(MapObjectPaths.CampAreaAlpine);
         CampAreaMesa = Find(MapObjectPaths.CampAreaMesa);
         CampAreaCaldera = Find(MapObjectPaths.CampAreaCaldera);
@@ -108,6 +115,7 @@ public static class MapObjectRefs
         // Campfires
         CampfireShore = Find(MapObjectPaths.CampfireShore);
         CampfireTropics = Find(MapObjectPaths.CampfireTropics);
+        CampfireRoots = Find(MapObjectPaths.CampfireRoots);
         CampfireAlpine = Find(MapObjectPaths.CampfireAlpine);
         CampfireMesa = Find(MapObjectPaths.CampfireMesa);
         CampfireCaldera = Find(MapObjectPaths.CampfireCaldera);
@@ -155,12 +163,14 @@ public static class MapObjectRefs
         
         BioShore = null;
         BioTropics = null;
+        BioRoots = null;
         BioAlpine = null;
         BioMesa = null;
         BioVolcano = null;
         
         SegShore = null;
         SegTropics = null;
+        SegRoots = null;
         SegAlpine = null;
         SegMesa = null;
         SegCaldera = null;
@@ -169,12 +179,14 @@ public static class MapObjectRefs
         
         CampAreaShore = null;
         CampAreaTropics = null;
+        CampAreaRoots = null;
         CampAreaAlpine = null;
         CampAreaMesa = null;
         CampAreaCaldera = null;
         
         CampfireShore = null;
         CampfireTropics = null;
+        CampfireRoots = null;
         CampfireAlpine = null;
         CampfireMesa = null;
         CampfireCaldera = null;

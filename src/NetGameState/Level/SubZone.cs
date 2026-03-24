@@ -17,7 +17,7 @@ public enum SubZone
     Shore_JellyHell = 14,
     Shore_BlackSand = 15,
     
-    // Tropics 30-49
+    // Tropics 30-39
     Tropics_Default = 30,
     Tropics_Lava = 31,
     Tropics_Pillars = 32,
@@ -25,6 +25,9 @@ public enum SubZone
     Tropics_Bombs = 34,
     Tropics_Ivy = 35,
     Tropics_SkyJungle = 36,
+    
+    // Roots 40-49
+    Roots_Default = 40,
     
     // Alpine 50-69
     Alpine_Default = 50,
@@ -68,6 +71,13 @@ public enum TropicsZone
     Bombs = SubZone.Tropics_Bombs,
     Ivy = SubZone.Tropics_Ivy,
     SkyJungle = SubZone.Tropics_SkyJungle,
+}
+
+public enum RootsZone
+{
+    Unknown = SubZone.Unknown,
+    Any = SubZone.Any,
+    Default = SubZone.Roots_Default
 }
 
 public enum AlpineZone
