@@ -9,39 +9,57 @@ namespace NetGameState.Network;
 
 public class PlayerReadyTracker : MonoBehaviourPun
 {
+    public static PlayerReadyTracker Instance { get; private set; } = null!;
     private readonly HashSet<int> _readyPlayers = [];
     private readonly Dictionary<int, float> _loadStartTimes = [];
     private const float TimeoutSeconds = 15f;
     private bool _allIsReady;
+    private bool _waitForAllReady;
 
-
-    private void ReEnableMe()
+    private void Awake()
     {
-        enabled = true;
+        if (!ReferenceEquals(Instance, null))
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()
     {
-        GameStateEvents.OnRunStartLoading += ResetTracking;
-        GameStateEvents.OnAirportLoaded += ReEnableMe;
+        GameStateEvents.OnRunStartLoading += OnRunStartLoading;
+        ResetTracking(false);
     }
 
     private void OnDisable()
     {
-        GameStateEvents.OnRunStartLoading -= ResetTracking;
+        GameStateEvents.OnRunStartLoading -= OnRunStartLoading;
     }
 
     private void OnDestroy()
     {
-        GameStateEvents.OnRunStartLoading -= ResetTracking;
-        GameStateEvents.OnAirportLoaded -= ReEnableMe;
+        GameStateEvents.OnRunStartLoading -= OnRunStartLoading;
     }
 
-    private void ResetTracking(string sceneName, int ascent)
+    private void OnRunStartLoading(string sceneName, int ascent)
     {
+        ResetTracking(true);
+    }
+
+    private void ResetTracking(bool waitForAll)
+    {
+        if (waitForAll)
+            LogProvider.Log?.LogColor("Player ready tracker waiting for all players to be ready.");
+        else
+            LogProvider.Log?.LogColor("Player ready tracker reset");
+        
         _readyPlayers.Clear();
         _loadStartTimes.Clear();
         _allIsReady = false;
+        _waitForAllReady = waitForAll;
     }
 
     internal void Send_SetPlayerReady()
@@ -76,6 +94,7 @@ public class PlayerReadyTracker : MonoBehaviourPun
         if (_readyPlayers.Count == PhotonNetwork.PlayerList.Length)
         {
             _allIsReady = true;
+            _waitForAllReady = false;
             GameStateEvents.RaiseOnAllPlayersReady();
             enabled = false;
         }
@@ -83,7 +102,7 @@ public class PlayerReadyTracker : MonoBehaviourPun
 
     private void Update()
     {
-        if (_allIsReady || !PhotonNetwork.IsMasterClient || !PhotonNetwork.InRoom)
+        if (_allIsReady || !PhotonNetwork.IsMasterClient || !PhotonNetwork.InRoom || !_waitForAllReady)
             return;
         
         foreach (var p in PhotonNetwork.PlayerList)
@@ -101,6 +120,7 @@ public class PlayerReadyTracker : MonoBehaviourPun
             if (PlayerHandler.TryGetPlayer(p.ActorNumber, out var playerHandler))
             {
                 // Notify player load timeout
+                _waitForAllReady = false;
                 GameStateEvents.RaiseOnPlayerLoadTimeout(playerHandler);
                 enabled = false;
             }

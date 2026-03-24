@@ -140,4 +140,19 @@ public static class SegmentMapper
             _ => Zone.Unknown
         };
     }
+    
+    public static string SubZoneToExactString(Zone zone, SubZone subZone)
+    {
+        switch (zone)
+        {
+            case Zone.Shore: return ((ShoreZone)subZone).ToString();
+            case Zone.Tropics: return ((TropicsZone)subZone).ToString();
+            case Zone.Alpine: return ((AlpineZone)subZone).ToString();
+            case Zone.Mesa: return ((MesaZone)subZone).ToString();
+            case Zone.Caldera: return ((CalderaZone)subZone).ToString();
+            case Zone.Kiln: return ((KilnZone)subZone).ToString();
+            case Zone.Peak: return ((PeakZone)subZone).ToString();
+            default: return subZone.ToString();
+        }
+    }
 }

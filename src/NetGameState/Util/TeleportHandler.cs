@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace NetGameState.Util;
 
-internal enum Campfire
+public enum Campfire
 {
     Shore,
     Tropics,
@@ -17,11 +17,11 @@ internal enum Campfire
     PeakFlagpole,
 }
 
-internal static class TeleportHandler
+public static class TeleportHandler
 {
     private static readonly Vector3 Offset = new(0, 10, 0);
 
-    internal static void TeleportToCampfire(Campfire campfire)
+    public static void TeleportToCampfire(Campfire campfire)
     {
         if (!GameStateEvents.IsRunActive)
             return;

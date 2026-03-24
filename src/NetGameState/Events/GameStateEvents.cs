@@ -1,6 +1,7 @@
 using System;
 using NetGameState.LevelProgression;
 using NetGameState.LevelStructure;
+using NetGameState.Network;
 
 
 namespace NetGameState.Events;
@@ -12,8 +13,10 @@ public static class GameStateEvents
     public static int CurrentAscent { get; private set; }
 
     public static bool IsRunActive { get; private set; }
-    public static bool IsInLobby { get; private set; }
+    public static bool IsInAirport { get; private set; }
     public static bool IsOfflineMode { get; private set; }
+
+    public static bool IsAllReady { get; private set; }
 
     private static bool _isLobbyCreated;
 
@@ -43,6 +46,8 @@ public static class GameStateEvents
     public static event Action? OnAllPlayersReady;                              // all players have loaded Level_x
     public static event Action<Player>? OnPlayerLoadTimeout;                    // one or more players did not load Level_x in time
     public static event Action<string, int>? OnRunStartLoadComplete;            // run has loaded and started Level_x
+
+    public static event Action? OnRunStartedAndPlayersReady;                    // run has loaded and all players are ready
     
 
     // === Raise Methods ======================================================
@@ -82,7 +87,7 @@ public static class GameStateEvents
     internal static void RaiseOnSelfLeaveLobby()
     {
         _isLobbyCreated = false;
-        IsInLobby = false;
+        IsInAirport = false;
         IsRunActive = false;
         OnSelfLeaveLobby?.Invoke();    
     }
@@ -99,8 +104,11 @@ public static class GameStateEvents
     // === Airport / Lobby ===
     internal static void RaiseOnAirportLoaded()
     {
-        IsInLobby = true;
+        IsInAirport = true;
         IsRunActive = false;
+        IsAllReady = false;
+
+        PlayerReadyTracker.Instance.enabled = true;
         
         OnAirportLoaded?.Invoke();
     }
@@ -111,6 +119,7 @@ public static class GameStateEvents
     {
         CurrentLevel = sceneName;
         CurrentAscent = ascent;
+        IsInAirport = false;
         OnRunStartLoading?.Invoke(sceneName, ascent);    
     }
 
@@ -120,17 +129,36 @@ public static class GameStateEvents
     internal static void RaiseOnPlayerReady(Player player) =>
         OnPlayerReady?.Invoke(player);
 
-    internal static void RaiseOnAllPlayersReady() =>
+    internal static void RaiseOnAllPlayersReady()
+    {
+        IsAllReady = true;
         OnAllPlayersReady?.Invoke();
 
-    internal static void RaiseOnPlayerLoadTimeout(Player player) =>
+        if (IsRunActive)
+        {
+            OnRunStartedAndPlayersReady?.Invoke();
+        }
+    }
+    
+
+    internal static void RaiseOnPlayerLoadTimeout(Player player)
+    {
+        IsAllReady = true;
         OnPlayerLoadTimeout?.Invoke(player);
+    }
+    
     
     internal static void RaiseOnRunLoadComplete()
     {
         MapObjectRefs.Init();                   // 9ms
         SegmentManager.DetermineRunSegments();  // 6ms
         IsRunActive = true;
+        IsInAirport = false;
         OnRunStartLoadComplete?.Invoke(CurrentLevel, CurrentAscent);
+
+        if (IsAllReady)
+        {
+            OnRunStartedAndPlayersReady?.Invoke();
+        }
     }
 }

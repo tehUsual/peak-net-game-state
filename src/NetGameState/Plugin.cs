@@ -20,7 +20,7 @@ namespace NetGameState;
 public partial class Plugin : BaseUnityPlugin
 {
     //internal static ManualLogSource Log { get; private set; } = null!;
-    internal static bool Debug { get; private set; } = false;
+    internal static bool Debug { get; private set; } = true;
 
     private static GameObject? _netGameStateTracker;
     
@@ -127,7 +127,6 @@ public partial class Plugin : BaseUnityPlugin
         _netGameStateTracker.AddComponent<PhotonCallbacks>();
         var pv = _netGameStateTracker.AddComponent<PhotonView>();
         pv.ViewID = NetGameStateViewID;
-        DontDestroyOnLoad(_netGameStateTracker);
     }
     
     private void OnDestroy()
