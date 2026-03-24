@@ -105,7 +105,7 @@ public partial class Plugin : BaseUnityPlugin
             if (Input.GetKeyDown(KeyCode.Keypad1))
                 TeleportHandler.TeleportToCampfire(Util.Campfire.Shore);
             if (Input.GetKeyDown(KeyCode.Keypad2))
-                TeleportHandler.TeleportToCampfire(Util.Campfire.Tropics);
+                TeleportHandler.TeleportToCampfire(Util.Campfire.TropicsRoots);
             if (Input.GetKeyDown(KeyCode.Keypad3))
                 TeleportHandler.TeleportToCampfire(Util.Campfire.AlpineMesa);
             if (Input.GetKeyDown(KeyCode.Keypad4))

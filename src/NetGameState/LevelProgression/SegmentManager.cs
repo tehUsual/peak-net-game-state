@@ -35,6 +35,7 @@ public static class SegmentManager
         new(CurrentChapter, CurrentZone, CurrentSubZone);
 
     public static bool IsAlpine { get; private set; }
+    public static bool IsTropics { get; private set; }
 
 
     static SegmentManager()
@@ -59,6 +60,7 @@ public static class SegmentManager
         }
         
         IsAlpine = false;
+        IsTropics = false;
     }
 
 
@@ -95,6 +97,8 @@ public static class SegmentManager
 
             if (zone == Zone.Alpine)
                 IsAlpine = true;
+            if (zone == Zone.Tropics)
+                IsTropics = true;
         }
         
         CurrentChapter = CurrentRunSegments[0].Chapter;

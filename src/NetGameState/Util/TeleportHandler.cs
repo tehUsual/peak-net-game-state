@@ -11,7 +11,7 @@ namespace NetGameState.Util;
 public enum Campfire
 {
     Shore,
-    Tropics,
+    TropicsRoots,
     AlpineMesa,
     Caldera,
     PeakFlagpole,
@@ -29,7 +29,7 @@ public static class TeleportHandler
         Transform? campfireTarget = campfire switch
         {
             Campfire.Shore => MapObjectRefs.CampfireShore,
-            Campfire.Tropics => MapObjectRefs.CampfireTropics,
+            Campfire.TropicsRoots => SegmentManager.IsTropics ? MapObjectRefs.CampfireTropics : MapObjectRefs.CampfireRoots,
             Campfire.AlpineMesa => SegmentManager.IsAlpine ? MapObjectRefs.CampfireAlpine : MapObjectRefs.CampfireMesa,
             Campfire.Caldera => MapObjectRefs.CampfireCaldera,
             Campfire.PeakFlagpole => MapObjectRefs.PeakFlagPole,
