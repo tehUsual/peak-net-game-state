@@ -20,7 +20,7 @@ namespace NetGameState;
 public partial class Plugin : BaseUnityPlugin
 {
     //internal static ManualLogSource Log { get; private set; } = null!;
-    internal static bool Debug { get; private set; } = true;
+    internal static bool Debug { get; private set; } = false;
 
     private static GameObject? _netGameStateTracker;
     
@@ -28,7 +28,7 @@ public partial class Plugin : BaseUnityPlugin
     
     private const int NetGameStateViewID = 9969;
     
-    private const string CompatibleVersion = "1.29.a";
+    private const string CompatibleVersion = "1.54.c";
 
     private void Awake()
     {
