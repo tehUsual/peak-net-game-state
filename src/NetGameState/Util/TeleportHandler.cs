@@ -1,5 +1,4 @@
 using System;
-using ConsoleTools;
 using NetGameState.Events;
 using NetGameState.LevelProgression;
 using NetGameState.LevelStructure;
@@ -26,15 +25,59 @@ public static class TeleportHandler
         if (!GameStateEvents.IsRunActive)
             return;
 
-        Transform? campfireTarget = campfire switch
+        Transform? campfireTarget;
+        switch (campfire)
         {
-            Campfire.Shore => MapObjectRefs.CampSpawnerShore,
-            Campfire.TropicsRoots => SegmentManager.IsTropics ? MapObjectRefs.CampSpawnerTropics : MapObjectRefs.CampSpawnerRoots,
-            Campfire.AlpineMesa => SegmentManager.IsAlpine ? MapObjectRefs.CampSpawnerAlpine : MapObjectRefs.CampSpawnerMesa,
-            Campfire.Caldera => MapObjectRefs.CampSpawnerCaldera,
-            Campfire.PeakFlagpole => MapObjectRefs.PeakFlagPole,
-            _ => throw new ArgumentOutOfRangeException(nameof(campfire), campfire, null)
-        };
+            case Campfire.Shore:
+                campfireTarget = GameObject.Find(MapObjectPaths.CampfireShore)?.transform;
+                if (ReferenceEquals(campfireTarget, null))
+                    campfireTarget = MapObjectRefs.CampSpawnerShore;
+                break;
+                
+            case Campfire.TropicsRoots:
+                if (SegmentManager.IsTropics)
+                {
+                    campfireTarget = GameObject.Find(MapObjectPaths.CampfireTropics)?.transform;
+                    if (ReferenceEquals(campfireTarget, null))
+                        campfireTarget = MapObjectRefs.CampSpawnerTropics;
+                }
+                else
+                {
+                    campfireTarget = GameObject.Find(MapObjectPaths.CampfireRoots)?.transform;
+                    if (ReferenceEquals(campfireTarget, null))
+                        campfireTarget = MapObjectRefs.CampSpawnerRoots;
+                }
+                break;
+
+            case Campfire.AlpineMesa:
+                if (SegmentManager.IsAlpine)
+                {
+                    campfireTarget = GameObject.Find(MapObjectPaths.CampfireAlpine)?.transform;
+                    if (ReferenceEquals(campfireTarget, null))
+                        campfireTarget = MapObjectRefs.CampSpawnerAlpine;
+                }
+                else
+                {
+                    campfireTarget = GameObject.Find(MapObjectPaths.CampfireMesa)?.transform;
+                    if (ReferenceEquals(campfireTarget, null))
+                        campfireTarget = MapObjectRefs.CampSpawnerMesa;
+                }
+                break;
+            
+            case Campfire.Caldera:
+                campfireTarget = GameObject.Find(MapObjectPaths.CampfireCaldera)?.transform;
+                if (ReferenceEquals(campfireTarget, null))
+                    campfireTarget = MapObjectRefs.CampSpawnerCaldera;
+                break;
+            
+            case Campfire.PeakFlagpole:
+                campfireTarget = GameObject.Find(MapObjectPaths.PeakFlagPole)?.transform;
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException(nameof(campfire), campfire, null);
+                
+        }
 
         if (!ReferenceEquals(campfireTarget, null))
         {
