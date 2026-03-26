@@ -28,10 +28,10 @@ public static class TeleportHandler
 
         Transform? campfireTarget = campfire switch
         {
-            Campfire.Shore => MapObjectRefs.CampfireShore,
-            Campfire.TropicsRoots => SegmentManager.IsTropics ? MapObjectRefs.CampfireTropics : MapObjectRefs.CampfireRoots,
-            Campfire.AlpineMesa => SegmentManager.IsAlpine ? MapObjectRefs.CampfireAlpine : MapObjectRefs.CampfireMesa,
-            Campfire.Caldera => MapObjectRefs.CampfireCaldera,
+            Campfire.Shore => MapObjectRefs.CampSpawnerShore,
+            Campfire.TropicsRoots => SegmentManager.IsTropics ? MapObjectRefs.CampSpawnerTropics : MapObjectRefs.CampSpawnerRoots,
+            Campfire.AlpineMesa => SegmentManager.IsAlpine ? MapObjectRefs.CampSpawnerAlpine : MapObjectRefs.CampSpawnerMesa,
+            Campfire.Caldera => MapObjectRefs.CampSpawnerCaldera,
             Campfire.PeakFlagpole => MapObjectRefs.PeakFlagPole,
             _ => throw new ArgumentOutOfRangeException(nameof(campfire), campfire, null)
         };

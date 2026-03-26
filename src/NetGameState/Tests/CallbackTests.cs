@@ -23,6 +23,18 @@ internal static class CallbackTests
     /* === Leave game ===
      * OnSelfLeaveLobby()
      */
+    
+    /* === Start run ===
+     * OnRunStartLoading()
+     * OnPlayerRegistered()
+     * OnPlayerReady()              [PlayerReadyTracker]
+     * OnAllPlayersReady()          [PlayerReadyTracker]
+     * OnRunStartLoadComplete()
+     */
+    
+    /* === Exit to menu ===
+     * OnSelfLeaveLobby()
+     */
 
     internal static void Init(bool all = false)
     {

@@ -39,13 +39,21 @@ public static class MapObjectPaths
     public const string CampAreaMesa =  $"{BioMesa}/Desert_Campfire/Snow_Campfire";     // snow in desert campfire
     public const string CampAreaCaldera = $"{BioVolcano}/Volcano_Campfire";
     
-    // --- Campfire ---
-    public const string CampfireShore = $"{CampAreaShore}/Campfire/Campfire";
-    public const string CampfireTropics = $"{CampAreaTropics}/Campfire/Campfire";
-    public const string CampfireRoots = $"{CampAreaTropics}/Campfire"; // WARN: this is a campfire spawner and not a campfire obj
-    public const string CampfireAlpine = $"{CampAreaAlpine}/Campfire/Campfire";
-    public const string CampfireMesa = $"{CampAreaMesa}/Campfire"; // WARN: this is a campfire spawner and not a campfire obj
-    public const string CampfireCaldera = $"{CampAreaCaldera}/Campfire/Campfire-Kiln";
+    // --- Campfire Spawners ---
+    public const string CampSpawnerShore = $"{CampAreaShore}/Campfire";
+    public const string CampSpawnerTropics = $"{CampAreaTropics}/Campfire";
+    public const string CampSpawnerRoots = $"{CampAreaRoots}/Campfire";
+    public const string CampSpawnerAlpine = $"{CampAreaAlpine}/Campfire";
+    public const string CampSpawnerMesa = $"{CampAreaMesa}/Campfire";
+    public const string CampSpawnerCaldera = $"{CampAreaCaldera}/Campfire";
+    
+    // --- Campfires ---
+    public const string CampfireShore = $"{CampSpawnerShore}/Campfire";         // INFO: might not exist in object tree
+    public const string CampfireTropics = $"{CampSpawnerTropics}/Campfire";     // INFO: might not exist in object tree
+    public const string CampfireRoots = $"{CampSpawnerRoots}/Campfire";         // INFO: might not exist in object tree
+    public const string CampfireAlpine = $"{CampSpawnerAlpine}/Campfire";       // INFO: might not exist in object tree
+    public const string CampfireMesa = $"{CampSpawnerMesa}/Campfire";           // INFO: might not exist in object tree
+    public const string CampfireCaldera = $"{CampSpawnerCaldera}/Campfire-Kiln";// INFO: might not exist in object tree
     
     
     // --- Sub Zone: Shore ---
@@ -122,16 +130,30 @@ public static class MapObjectPaths
         }
     }
 
+    public static bool TryGetCampSpawnerRoot(Zone zone, out string campfireSpawnerRoot)
+    {
+        switch (zone)
+        {
+            case Zone.Shore: campfireSpawnerRoot = CampSpawnerShore; return true;
+            case Zone.Tropics: campfireSpawnerRoot = CampSpawnerTropics; return true;
+            case Zone.Roots: campfireSpawnerRoot = CampSpawnerRoots; return true;
+            case Zone.Alpine: campfireSpawnerRoot = CampSpawnerAlpine; return true;
+            case Zone.Mesa: campfireSpawnerRoot = CampSpawnerMesa; return true;
+            case Zone.Caldera: campfireSpawnerRoot = CampSpawnerCaldera; return true;
+            default: campfireSpawnerRoot = ""; return false;
+        }
+    }
+
     public static bool TryGetCampfireRoot(Zone zone, out string campfireRoot)
     {
         switch (zone)
         {
-            case Zone.Shore: campfireRoot = CampfireShore; return true;
-            case Zone.Tropics: campfireRoot = CampfireTropics; return true;
-            case Zone.Roots: campfireRoot = CampfireRoots; return true;     // WARN: this is a campfire spawner and not a campfire obj
-            case Zone.Alpine: campfireRoot = CampfireAlpine; return true;
-            case Zone.Mesa: campfireRoot = CampfireMesa; return true;       // WARN: this is a campfire spawner and not a campfire obj
-            case Zone.Caldera: campfireRoot = CampfireCaldera; return true;
+            case Zone.Shore: campfireRoot = CampfireShore; return true;     // INFO: might not exist in object tree
+            case Zone.Tropics: campfireRoot = CampfireTropics; return true; // INFO: might not exist in object tree
+            case Zone.Roots: campfireRoot = CampfireRoots; return true;     // INFO: might not exist in object tree
+            case Zone.Alpine: campfireRoot = CampfireAlpine; return true;   // INFO: might not exist in object tree
+            case Zone.Mesa: campfireRoot = CampfireMesa; return true;       // INFO: might not exist in object tree
+            case Zone.Caldera: campfireRoot = CampfireCaldera; return true; // INFO: might not exist in object tree
             default: campfireRoot = ""; return false;
         }
     }

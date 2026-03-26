@@ -38,14 +38,22 @@ public static class MapObjectRefs
     public static Transform? CampAreaAlpine { get; private set; }
     public static Transform? CampAreaMesa { get; private set; }
     public static Transform? CampAreaCaldera { get; private set; }
+    
+    // --- Campfire Spawners ---
+    public static Transform? CampSpawnerShore { get; private set; }
+    public static Transform? CampSpawnerTropics { get; private set; }
+    public static Transform? CampSpawnerRoots { get; private set; }
+    public static Transform? CampSpawnerAlpine { get; private set; }
+    public static Transform? CampSpawnerMesa { get; private set; }
+    public static Transform? CampSpawnerCaldera { get; private set; }
 
     // --- Campfires ---
-    public static Transform? CampfireShore { get; private set; }
+    /*public static Transform? CampfireShore { get; private set; }     // Probably not needed
     public static Transform? CampfireTropics { get; private set; }
     public static Transform? CampfireRoots { get; private set; }
     public static Transform? CampfireAlpine { get; private set; }
     public static Transform? CampfireMesa { get; private set; }
-    public static Transform? CampfireCaldera { get; private set; }
+    public static Transform? CampfireCaldera { get; private set; }*/
     
     // --- Sub Zone: Shore ---
     public static Transform? SubBioShoreDefault { get; private set; }
@@ -112,13 +120,21 @@ public static class MapObjectRefs
         CampAreaMesa = Find(MapObjectPaths.CampAreaMesa);
         CampAreaCaldera = Find(MapObjectPaths.CampAreaCaldera);
 
+        // Campfire Spawners
+        CampSpawnerShore = Find(MapObjectPaths.CampSpawnerShore);
+        CampSpawnerTropics = Find(MapObjectPaths.CampSpawnerTropics);
+        CampSpawnerRoots = Find(MapObjectPaths.CampSpawnerRoots);
+        CampSpawnerAlpine = Find(MapObjectPaths.CampSpawnerAlpine);
+        CampSpawnerMesa = Find(MapObjectPaths.CampSpawnerMesa);
+        CampSpawnerCaldera = Find(MapObjectPaths.CampSpawnerCaldera);
+        
         // Campfires
-        CampfireShore = Find(MapObjectPaths.CampfireShore);
+        /*CampfireShore = Find(MapObjectPaths.CampfireShore);      // Probably not needed
         CampfireTropics = Find(MapObjectPaths.CampfireTropics);
         CampfireRoots = Find(MapObjectPaths.CampfireRoots);
         CampfireAlpine = Find(MapObjectPaths.CampfireAlpine);
         CampfireMesa = Find(MapObjectPaths.CampfireMesa);
-        CampfireCaldera = Find(MapObjectPaths.CampfireCaldera);
+        CampfireCaldera = Find(MapObjectPaths.CampfireCaldera);*/
         
         // Sub Zone: Shore
         SubBioShoreDefault = Find(MapObjectPaths.SubBioShoreDefault);
@@ -184,12 +200,19 @@ public static class MapObjectRefs
         CampAreaMesa = null;
         CampAreaCaldera = null;
         
-        CampfireShore = null;
+        CampSpawnerShore = null;
+        CampSpawnerTropics = null;
+        CampSpawnerRoots = null;
+        CampSpawnerAlpine = null;
+        CampSpawnerMesa = null;
+        CampSpawnerCaldera = null;
+        
+        /*CampfireShore = null;        // Probably not needed
         CampfireTropics = null;
         CampfireRoots = null;
         CampfireAlpine = null;
         CampfireMesa = null;
-        CampfireCaldera = null;
+        CampfireCaldera = null;*/
         
         SubBioShoreDefault = null;
         SubBioShoreSnakeBeach = null;

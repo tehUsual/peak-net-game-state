@@ -78,7 +78,7 @@ public partial class Plugin : BaseUnityPlugin
         if (Debug)
         {
             // === Tests
-            CallbackTests.Init();    
+            CallbackTests.Init();
         }
 #endif
         
