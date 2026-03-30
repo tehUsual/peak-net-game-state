@@ -27,7 +27,8 @@ public static class SteamLobbyHandlerPatches
     [HarmonyPatch(nameof(SteamLobbyHandler.LeaveLobby))]
     private static void Prefix_LeaveLobby(SteamLobbyHandler __instance)
     {
-        if (__instance.m_currentLobby.m_SteamID != 0UL)
+        //if (__instance.m_currentLobby.m_SteamID != 0UL)
+        if (__instance.LobbySteamId.m_SteamID != 0UL)
             GameStateEvents.RaiseOnSelfLeaveLobby();
     }
 }
