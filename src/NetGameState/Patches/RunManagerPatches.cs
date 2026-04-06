@@ -1,6 +1,7 @@
 using ConsoleTools;
 using HarmonyLib;
 using NetGameState.Events;
+using NetGameState.Logging;
 using UnityEngine.SceneManagement;
 
 namespace NetGameState.Patches;
@@ -9,14 +10,16 @@ namespace NetGameState.Patches;
 public static class RunManagerPatches
 {
     // ReSharper disable once InconsistentNaming
-    [HarmonyPatch(nameof(RunManager.StartRun))]
-    private static void Postfix(RunManager __instance)
+    [HarmonyPatch(nameof(RunManager.Start))]
+    private static void Prefix(RunManager __instance)
     {
-        string sceneName = SceneManager.GetActiveScene().name;
+        string sceneName = SceneManager.GetActiveScene().name.ToLower();
         
-        if (sceneName.StartsWith("Airport"))
+        //LogProvider.Log?.LogColor($"RunManager.StartRun: {sceneName}");
+        
+        if (sceneName.StartsWith("airport"))
             GameStateEvents.RaiseOnAirportLoaded();
-        if (sceneName.StartsWith("Level_") || sceneName.StartsWith("WilIsland"))
+        if (sceneName.StartsWith("level_") || sceneName.StartsWith("wilisland"))
             GameStateEvents.RaiseOnRunLoadComplete();
     }
 }
