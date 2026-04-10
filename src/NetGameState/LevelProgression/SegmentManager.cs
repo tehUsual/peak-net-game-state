@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NetGameState.Events;
-using NetGameState.Level.Helpers;
-using NetGameState.Level;
+using NetGameState.Types;
 using NetGameState.LevelStructure;
 using UnityEngine;
 
@@ -11,28 +10,28 @@ namespace NetGameState.LevelProgression;
 
 public static class SegmentManager
 {
-    public readonly struct SegmentInfo(Chapter chapter, Zone biome, SubZone subZone, Transform? segment = null)
+    public readonly struct SegmentInfo(NgsSegment ngsSegment, NgsBiome biome, NgsBiomeVariant ngsBiomeVariant, Transform? segment = null)
     {
-        public readonly Chapter Chapter = chapter;
-        public readonly Zone Zone = biome;
-        public readonly SubZone SubZone = subZone;
-        public readonly Transform? SegTansform = segment;
+        public readonly NgsSegment NgsSegment = ngsSegment;
+        public readonly NgsBiome NgsBiome = biome;
+        public readonly NgsBiomeVariant NgsBiomeVariant = ngsBiomeVariant;
+        public readonly Transform? SegmentTansform = segment;
     }
 
     public static event Action<SegmentInfo, SegmentInfo>? OnSegmentLoading;
     public static event Action<SegmentInfo>? OnSegmentLoadComplete;
 
     public static readonly SegmentInfo[] CurrentRunSegments = new SegmentInfo[Enum.GetValues(typeof(Segment)).Length];
-    public static readonly Dictionary<Zone, SubZone> CurrentRunSubZones = [];
+    public static readonly Dictionary<NgsBiome, NgsBiomeVariant> CurrentRunSubZones = [];
 
-    public static Chapter CurrentChapter { get; private set; } =  Chapter.Unknown;
-    public static Zone CurrentZone { get; private set; } = Zone.Unknown;
-    public static SubZone CurrentSubZone { get; private set; } = SubZone.Unknown;
+    public static NgsSegment CurrentNgsSegment { get; private set; } =  NgsSegment.Unknown;
+    public static NgsBiome CurrentNgsBiome { get; private set; } = NgsBiome.Unknown;
+    public static NgsBiomeVariant CurrentNgsBiomeVariant { get; private set; } = NgsBiomeVariant.Unknown;
 
     public static SegmentInfo CurrentSegmentInfo { get; private set; } =
-        new(CurrentChapter, CurrentZone, CurrentSubZone);
+        new(CurrentNgsSegment, CurrentNgsBiome, CurrentNgsBiomeVariant);
     public static SegmentInfo PreviousSegmentInfo { get; set; } =
-        new(CurrentChapter, CurrentZone, CurrentSubZone);
+        new(CurrentNgsSegment, CurrentNgsBiome, CurrentNgsBiomeVariant);
 
     public static bool IsAlpine { get; private set; }
     public static bool IsTropics { get; private set; }
@@ -47,17 +46,19 @@ public static class SegmentManager
 
     private static void Reset()
     {
-        CurrentChapter = Chapter.Unknown;
-        CurrentZone = Zone.Unknown;
-        CurrentSubZone = SubZone.Unknown;
+        CurrentNgsSegment = NgsSegment.Unknown;
+        CurrentNgsBiome = NgsBiome.Unknown;
+        CurrentNgsBiomeVariant = NgsBiomeVariant.Unknown;
         
-        CurrentSegmentInfo = new SegmentInfo(CurrentChapter, CurrentZone, CurrentSubZone);
-        PreviousSegmentInfo = new SegmentInfo(CurrentChapter, CurrentZone, CurrentSubZone);
+        CurrentSegmentInfo = new SegmentInfo(CurrentNgsSegment, CurrentNgsBiome, CurrentNgsBiomeVariant);
+        PreviousSegmentInfo = new SegmentInfo(CurrentNgsSegment, CurrentNgsBiome, CurrentNgsBiomeVariant);
 
         for (int i = 0; i < CurrentRunSegments.Length; i++)
         {
-            CurrentRunSegments[i] = new SegmentInfo(Chapter.Unknown, Zone.Unknown, SubZone.Unknown);
+            CurrentRunSegments[i] = new SegmentInfo(NgsSegment.Unknown, NgsBiome.Unknown, NgsBiomeVariant.Unknown);
         }
+
+        CurrentRunSubZones.Clear();
         
         IsAlpine = false;
         IsTropics = false;
@@ -66,14 +67,14 @@ public static class SegmentManager
 
     internal static void SetCurrentSegment(Segment segment)
     {
-        PreviousSegmentInfo = new SegmentInfo(CurrentChapter, CurrentZone, CurrentSubZone);
+        PreviousSegmentInfo = new SegmentInfo(CurrentNgsSegment, CurrentNgsBiome, CurrentNgsBiomeVariant);
+        
+        CurrentNgsSegment = NgsTypes.SegmentToNgsSegment(segment);
+        CurrentNgsBiome = NgsTypes.NgsSegmentToNgsBiome(CurrentNgsSegment);
+        CurrentNgsBiomeVariant = NgsTypes.NgsBiomeToNgsBiomeVariant(CurrentNgsBiome);
+        Transform? segTansform = GetBiomeSegment(CurrentNgsBiome);
 
-        CurrentChapter = SegmentMapper.GetChapterFromSegment(segment);
-        CurrentZone = SegmentMapper.GetZoneFromChapter(CurrentChapter);
-        CurrentSubZone = SegmentMapper.GetSubZoneFromZone(CurrentZone);
-        Transform? segTansform = GetBiomeSegment(CurrentZone);
-
-        CurrentSegmentInfo = new SegmentInfo(CurrentChapter, CurrentZone, CurrentSubZone, segTansform);
+        CurrentSegmentInfo = new SegmentInfo(CurrentNgsSegment, CurrentNgsBiome, CurrentNgsBiomeVariant, segTansform);
         OnSegmentLoading?.Invoke(PreviousSegmentInfo, CurrentSegmentInfo);
     }
 
@@ -88,39 +89,39 @@ public static class SegmentManager
                      .Cast<Segment>()
                      .Select((segment, index) => new { segment, index }))
         {
-            Chapter chapter = SegmentMapper.GetChapterFromSegment(pair.segment);
-            Zone zone = SegmentMapper.GetZoneFromChapter(chapter);
-            SubZone subZone = SegmentMapper.GetSubZoneFromZone(zone);
-            Transform? segTansform = GetBiomeSegment(zone);
-            CurrentRunSegments[pair.index] = new SegmentInfo(chapter, zone, subZone, segTansform);
-            CurrentRunSubZones[zone] = subZone;
+            NgsSegment ngsSegment = NgsTypes.SegmentToNgsSegment(pair.segment);
+            NgsBiome ngsBiome = NgsTypes.NgsSegmentToNgsBiome(ngsSegment);
+            NgsBiomeVariant ngsBiomeVariant = NgsTypes.NgsBiomeToNgsBiomeVariant(ngsBiome);
+            Transform? segTansform = GetBiomeSegment(ngsBiome);
+            CurrentRunSegments[pair.index] = new SegmentInfo(ngsSegment, ngsBiome, ngsBiomeVariant, segTansform);
+            CurrentRunSubZones[ngsBiome] = ngsBiomeVariant;
 
-            if (zone == Zone.Alpine)
+            if (ngsBiome == NgsBiome.Alpine)
                 IsAlpine = true;
-            if (zone == Zone.Tropics)
+            if (ngsBiome == NgsBiome.Tropics)
                 IsTropics = true;
         }
         
-        CurrentChapter = CurrentRunSegments[0].Chapter;
-        CurrentZone = CurrentRunSegments[0].Zone;
-        CurrentSubZone = CurrentRunSegments[0].SubZone;
+        CurrentNgsSegment = CurrentRunSegments[0].NgsSegment;
+        CurrentNgsBiome = CurrentRunSegments[0].NgsBiome;
+        CurrentNgsBiomeVariant = CurrentRunSegments[0].NgsBiomeVariant;
     }
 
-    private static Transform? GetBiomeSegment(Zone zone)
+    private static Transform? GetBiomeSegment(NgsBiome ngsBiome)
     {
-        return (zone) switch
+        return (ngsBiome) switch
         {
-            Zone.Shore => MapObjectRefs.SegShore,
+            NgsBiome.Shore => MapObjectRefs.SegShore,
             
-            Zone.Tropics => MapObjectRefs.SegTropics,
-            Zone.Roots => MapObjectRefs.SegRoots,
+            NgsBiome.Tropics => MapObjectRefs.SegTropics,
+            NgsBiome.Roots => MapObjectRefs.SegRoots,
             
-            Zone.Alpine => MapObjectRefs.SegAlpine,
-            Zone.Mesa => MapObjectRefs.SegMesa,
+            NgsBiome.Alpine => MapObjectRefs.SegAlpine,
+            NgsBiome.Mesa => MapObjectRefs.SegMesa,
             
-            Zone.Caldera => MapObjectRefs.SegCaldera,
-            Zone.Kiln => MapObjectRefs.SegKiln,
-            Zone.Peak => MapObjectRefs.SegPeak,
+            NgsBiome.Caldera => MapObjectRefs.SegCaldera,
+            NgsBiome.Kiln => MapObjectRefs.SegKiln,
+            NgsBiome.Peak => MapObjectRefs.SegPeak,
             
             _ => null
         };

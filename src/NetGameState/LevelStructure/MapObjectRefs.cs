@@ -244,7 +244,7 @@ public static class MapObjectRefs
             LogProvider.Log?.LogColor($"Could not find transform for: {path}");
         else
             _initCount++;
-        
-        return GameObject.Find(path)?.transform;
+
+        return transform;
     }
 }

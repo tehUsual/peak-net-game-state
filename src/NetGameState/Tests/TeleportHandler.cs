@@ -5,7 +5,7 @@ using NetGameState.LevelStructure;
 using Photon.Pun;
 using UnityEngine;
 
-namespace NetGameState.Util;
+namespace NetGameState.Tests;
 
 public enum Campfire
 {

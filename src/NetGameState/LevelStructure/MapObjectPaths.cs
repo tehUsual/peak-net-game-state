@@ -1,4 +1,4 @@
-using NetGameState.Level;
+using NetGameState.Types;
 
 namespace NetGameState.LevelStructure;
 
@@ -84,106 +84,106 @@ public static class MapObjectPaths
     
     
     // --- Helper Methods ---
-    public static bool TryGetBiomeRoot(Zone biome, out string biomeRoot)
+    public static bool TryGetBiomeRoot(NgsBiome biome, out string biomeRoot)
     {
         switch (biome)
         {
-            case Zone.Shore: biomeRoot = BioShore; return true;
-            case Zone.Tropics: biomeRoot = BioTropics; return true;
-            case Zone.Roots: biomeRoot = BioRoots; return true;
-            case Zone.Alpine: biomeRoot = BioAlpine; return true;
-            case Zone.Mesa: biomeRoot = BioMesa; return true;
-            case Zone.Caldera: biomeRoot = BioVolcano; return true;
-            case Zone.Kiln: biomeRoot = BioVolcano; return true;
-            case Zone.Peak: biomeRoot = BioVolcano; return true;
+            case NgsBiome.Shore: biomeRoot = BioShore; return true;
+            case NgsBiome.Tropics: biomeRoot = BioTropics; return true;
+            case NgsBiome.Roots: biomeRoot = BioRoots; return true;
+            case NgsBiome.Alpine: biomeRoot = BioAlpine; return true;
+            case NgsBiome.Mesa: biomeRoot = BioMesa; return true;
+            case NgsBiome.Caldera: biomeRoot = BioVolcano; return true;
+            case NgsBiome.Kiln: biomeRoot = BioVolcano; return true;
+            case NgsBiome.Peak: biomeRoot = BioVolcano; return true;
             default: biomeRoot = ""; return false;
         }
     }
 
-    public static bool TryGetSegmentRoot(Zone biome, out string segmentRoot)
+    public static bool TryGetSegmentRoot(NgsBiome biome, out string segmentRoot)
     {
         switch (biome)
         {
-            case Zone.Shore: segmentRoot = SegShore; return true;
-            case Zone.Tropics: segmentRoot = SegTropics; return true;
-            case Zone.Roots: segmentRoot = SegRoots; return true;
-            case Zone.Alpine: segmentRoot = SegAlpine; return true;
-            case Zone.Mesa: segmentRoot = SegMesa; return true;
-            case Zone.Caldera: segmentRoot = SegCaldera; return true;
-            case Zone.Kiln: segmentRoot = SegKiln; return true;
-            case Zone.Peak: segmentRoot = SegPeak; return true;
+            case NgsBiome.Shore: segmentRoot = SegShore; return true;
+            case NgsBiome.Tropics: segmentRoot = SegTropics; return true;
+            case NgsBiome.Roots: segmentRoot = SegRoots; return true;
+            case NgsBiome.Alpine: segmentRoot = SegAlpine; return true;
+            case NgsBiome.Mesa: segmentRoot = SegMesa; return true;
+            case NgsBiome.Caldera: segmentRoot = SegCaldera; return true;
+            case NgsBiome.Kiln: segmentRoot = SegKiln; return true;
+            case NgsBiome.Peak: segmentRoot = SegPeak; return true;
             default: segmentRoot = ""; return false;
         }
     }
 
-    public static bool TryGetCampAreaRoot(Zone zone, out string campAreaRoot)
+    public static bool TryGetCampAreaRoot(NgsBiome ngsBiome, out string campAreaRoot)
     {
-        switch (zone)
+        switch (ngsBiome)
         {
-            case Zone.Shore: campAreaRoot = CampAreaShore; return true;
-            case Zone.Tropics: campAreaRoot = CampAreaTropics; return true;
-            case Zone.Roots: campAreaRoot = CampAreaRoots; return true;
-            case Zone.Alpine: campAreaRoot = CampAreaAlpine; return true;
-            case Zone.Mesa: campAreaRoot = CampAreaMesa; return true;
-            case Zone.Caldera: campAreaRoot = CampAreaCaldera; return true;
+            case NgsBiome.Shore: campAreaRoot = CampAreaShore; return true;
+            case NgsBiome.Tropics: campAreaRoot = CampAreaTropics; return true;
+            case NgsBiome.Roots: campAreaRoot = CampAreaRoots; return true;
+            case NgsBiome.Alpine: campAreaRoot = CampAreaAlpine; return true;
+            case NgsBiome.Mesa: campAreaRoot = CampAreaMesa; return true;
+            case NgsBiome.Caldera: campAreaRoot = CampAreaCaldera; return true;
             default: campAreaRoot = ""; return false;
         }
     }
 
-    public static bool TryGetCampSpawnerRoot(Zone zone, out string campfireSpawnerRoot)
+    public static bool TryGetCampSpawnerRoot(NgsBiome ngsBiome, out string campfireSpawnerRoot)
     {
-        switch (zone)
+        switch (ngsBiome)
         {
-            case Zone.Shore: campfireSpawnerRoot = CampSpawnerShore; return true;
-            case Zone.Tropics: campfireSpawnerRoot = CampSpawnerTropics; return true;
-            case Zone.Roots: campfireSpawnerRoot = CampSpawnerRoots; return true;
-            case Zone.Alpine: campfireSpawnerRoot = CampSpawnerAlpine; return true;
-            case Zone.Mesa: campfireSpawnerRoot = CampSpawnerMesa; return true;
-            case Zone.Caldera: campfireSpawnerRoot = CampSpawnerCaldera; return true;
+            case NgsBiome.Shore: campfireSpawnerRoot = CampSpawnerShore; return true;
+            case NgsBiome.Tropics: campfireSpawnerRoot = CampSpawnerTropics; return true;
+            case NgsBiome.Roots: campfireSpawnerRoot = CampSpawnerRoots; return true;
+            case NgsBiome.Alpine: campfireSpawnerRoot = CampSpawnerAlpine; return true;
+            case NgsBiome.Mesa: campfireSpawnerRoot = CampSpawnerMesa; return true;
+            case NgsBiome.Caldera: campfireSpawnerRoot = CampSpawnerCaldera; return true;
             default: campfireSpawnerRoot = ""; return false;
         }
     }
 
-    public static bool TryGetCampfireRoot(Zone zone, out string campfireRoot)
+    public static bool TryGetCampfireRoot(NgsBiome ngsBiome, out string campfireRoot)
     {
-        switch (zone)
+        switch (ngsBiome)
         {
-            case Zone.Shore: campfireRoot = CampfireShore; return true;     // INFO: might not exist in object tree
-            case Zone.Tropics: campfireRoot = CampfireTropics; return true; // INFO: might not exist in object tree
-            case Zone.Roots: campfireRoot = CampfireRoots; return true;     // INFO: might not exist in object tree
-            case Zone.Alpine: campfireRoot = CampfireAlpine; return true;   // INFO: might not exist in object tree
-            case Zone.Mesa: campfireRoot = CampfireMesa; return true;       // INFO: might not exist in object tree
-            case Zone.Caldera: campfireRoot = CampfireCaldera; return true; // INFO: might not exist in object tree
+            case NgsBiome.Shore: campfireRoot = CampfireShore; return true;     // INFO: might not exist in object tree
+            case NgsBiome.Tropics: campfireRoot = CampfireTropics; return true; // INFO: might not exist in object tree
+            case NgsBiome.Roots: campfireRoot = CampfireRoots; return true;     // INFO: might not exist in object tree
+            case NgsBiome.Alpine: campfireRoot = CampfireAlpine; return true;   // INFO: might not exist in object tree
+            case NgsBiome.Mesa: campfireRoot = CampfireMesa; return true;       // INFO: might not exist in object tree
+            case NgsBiome.Caldera: campfireRoot = CampfireCaldera; return true; // INFO: might not exist in object tree
             default: campfireRoot = ""; return false;
         }
     }
 
-    public static bool TryGetSubZoneRoot(SubZone subZone, out string subZoneRoot)
+    public static bool TryGetSubZoneRoot(NgsBiomeVariant ngsBiomeVariant, out string subZoneRoot)
     {
-        switch (subZone)
+        switch (ngsBiomeVariant)
         {
             // Shore sub zones
-            case SubZone.Shore_Default: subZoneRoot = SubBioShoreDefault; return true;
-            case SubZone.Shore_SnakeBeach: subZoneRoot = SubBioShoreSnakeBeach; return true;
-            case SubZone.Shore_RedBeach: subZoneRoot = SubBioShoreRedBeach; return true;
-            case SubZone.Shore_BlueBeach: subZoneRoot = SubBioShoreBlueBeach; return true;
-            case SubZone.Shore_JellyHell: subZoneRoot = SubBioShoreJellyHell; return true;
-            case SubZone.Shore_BlackSand: subZoneRoot = SubBioShoreBlackSand; return true;
+            case NgsBiomeVariant.Shore_Default: subZoneRoot = SubBioShoreDefault; return true;
+            case NgsBiomeVariant.Shore_SnakeBeach: subZoneRoot = SubBioShoreSnakeBeach; return true;
+            case NgsBiomeVariant.Shore_RedBeach: subZoneRoot = SubBioShoreRedBeach; return true;
+            case NgsBiomeVariant.Shore_BlueBeach: subZoneRoot = SubBioShoreBlueBeach; return true;
+            case NgsBiomeVariant.Shore_JellyHell: subZoneRoot = SubBioShoreJellyHell; return true;
+            case NgsBiomeVariant.Shore_BlackSand: subZoneRoot = SubBioShoreBlackSand; return true;
 
             // Tropics sub zones
-            case SubZone.Tropics_Default: subZoneRoot = SubBioTropicsDefault; return true;
-            case SubZone.Tropics_Lava: subZoneRoot = SubBioTropicsLava; return true;
-            case SubZone.Tropics_Pillars: subZoneRoot = SubBioTropicsPillars; return true;
-            case SubZone.Tropics_Thorny: subZoneRoot = SubBioTropicsThorny; return true;
-            case SubZone.Tropics_Bombs: subZoneRoot = SubBioTropicsBombs; return true;
-            case SubZone.Tropics_Ivy: subZoneRoot = SubBioTropicsIvy; return true;
-            case SubZone.Tropics_SkyJungle: subZoneRoot = SubBioTropicsSkyJungle; return true;
+            case NgsBiomeVariant.Tropics_Default: subZoneRoot = SubBioTropicsDefault; return true;
+            case NgsBiomeVariant.Tropics_Lava: subZoneRoot = SubBioTropicsLava; return true;
+            case NgsBiomeVariant.Tropics_Pillars: subZoneRoot = SubBioTropicsPillars; return true;
+            case NgsBiomeVariant.Tropics_Thorny: subZoneRoot = SubBioTropicsThorny; return true;
+            case NgsBiomeVariant.Tropics_Bombs: subZoneRoot = SubBioTropicsBombs; return true;
+            case NgsBiomeVariant.Tropics_Ivy: subZoneRoot = SubBioTropicsIvy; return true;
+            case NgsBiomeVariant.Tropics_SkyJungle: subZoneRoot = SubBioTropicsSkyJungle; return true;
 
             // Alpine sub zones
-            case SubZone.Alpine_Default: subZoneRoot = SubBioAlpineDefault; return true;
-            case SubZone.Alpine_Lava: subZoneRoot = SubBioAlpineLava; return true;
-            case SubZone.Alpine_Spiky: subZoneRoot = SubBioAlpineSpiky; return true;
-            case SubZone.Alpine_GeyserHell: subZoneRoot = SubBioAlpineGeyserHell; return true;
+            case NgsBiomeVariant.Alpine_Default: subZoneRoot = SubBioAlpineDefault; return true;
+            case NgsBiomeVariant.Alpine_Lava: subZoneRoot = SubBioAlpineLava; return true;
+            case NgsBiomeVariant.Alpine_Spiky: subZoneRoot = SubBioAlpineSpiky; return true;
+            case NgsBiomeVariant.Alpine_GeyserHell: subZoneRoot = SubBioAlpineGeyserHell; return true;
             
             default: subZoneRoot = ""; return false;
         }

@@ -183,7 +183,7 @@ internal static class CallbackTests
         for (int i = 0; i < SegmentManager.CurrentRunSegments.Length; i++)
         {
             SegmentManager.SegmentInfo segInfo = SegmentManager.CurrentRunSegments[i];
-            LogProvider.Log?.LogColorS($"Segment [{i+1}] is: [{segInfo.Chapter.ToString()}.{segInfo.Zone.ToString()}.{segInfo.SubZone.ToString()}]");
+            LogProvider.Log?.LogColorS($"Segment [{i+1}] is: [{segInfo.NgsSegment.ToString()}.{segInfo.NgsBiome.ToString()}.{segInfo.NgsBiomeVariant.ToString()}]");
         }
     }
     
@@ -197,12 +197,12 @@ internal static class CallbackTests
     // ==== Callbacks - Segments ====================================
     private static void OnSegmentLoading(SegmentManager.SegmentInfo prevSeg, SegmentManager.SegmentInfo nextSeg)
     {
-        LogProvider.Log?.LogColor($"Segment loading: [{prevSeg.Chapter.ToString()}.{prevSeg.Zone.ToString()}.{prevSeg.SubZone.ToString()}]" +
-                                  $" -> [{nextSeg.Chapter.ToString()}.{nextSeg.Zone.ToString()}.{nextSeg.SubZone.ToString()}]");
+        LogProvider.Log?.LogColor($"Segment loading: [{prevSeg.NgsSegment.ToString()}.{prevSeg.NgsBiome.ToString()}.{prevSeg.NgsBiomeVariant.ToString()}]" +
+                                  $" -> [{nextSeg.NgsSegment.ToString()}.{nextSeg.NgsBiome.ToString()}.{nextSeg.NgsBiomeVariant.ToString()}]");
     }
 
     private static void OnSegmentLoadComplete(SegmentManager.SegmentInfo seg)
     {
-        LogProvider.Log?.LogColor($"Segment loaded: [{seg.Chapter.ToString()}.{seg.Zone.ToString()}.{seg.SubZone.ToString()}]");
+        LogProvider.Log?.LogColor($"Segment loaded: [{seg.NgsSegment.ToString()}.{seg.NgsBiome.ToString()}.{seg.NgsBiomeVariant.ToString()}]");
     }
 }

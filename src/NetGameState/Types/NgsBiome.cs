@@ -1,26 +1,30 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace NetGameState.Level;
+namespace NetGameState.Types;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]
-public enum Zone
+public enum NgsBiome
 {
     Unknown = -1,
     Any = 0,
     
-    // Biome 1
+    // Segment 1
     Shore,
     
-    // Biome 2
+    // Segment 2
     Tropics,
     Roots,
     
-    // Biome 3
+    // Segment 3
     Alpine,
     Mesa,
     
-    // Biome 4
+    // Segment 4
     Caldera,
+    
+    // Segment 5
     Kiln,
+    
+    // Segment 6
     Peak
 }

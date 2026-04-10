@@ -4,12 +4,8 @@ using ConsoleTools.Patches;
 using ConsoleTools;
 using HarmonyLib;
 using NetGameState.Events;
-using NetGameState.Listeners;
 using NetGameState.Logging;
-using NetGameState.Network;
-using NetGameState.Patches;
 using NetGameState.Tests;
-using NetGameState.Util;
 using Photon.Pun;
 using UnityEngine;
 
@@ -43,14 +39,7 @@ public partial class Plugin : BaseUnityPlugin
         
         // === Apply harmony patches
         var harmony = new Harmony("com.github.tehUsual.NetGameState");
-        harmony.PatchAll(typeof(AirportCheckInPatches));
-        harmony.PatchAll(typeof(LoadScenePatches));
-        harmony.PatchAll(typeof(MainMenuPatches));
-        harmony.PatchAll(typeof(MapHandlerPatches));
-        harmony.PatchAll(typeof(MountainProgressHandlerPatches));
-        harmony.PatchAll(typeof(PlayerHandlerPatches));
-        harmony.PatchAll(typeof(RunManagerPatches));
-        harmony.PatchAll(typeof(SteamLobbyHandlerPatches));
+        NetGameState.ApplyPatches(harmony);
         
         
 #if NETGAMESTATE_STANDALONE
@@ -103,15 +92,15 @@ public partial class Plugin : BaseUnityPlugin
         if (PhotonNetwork.IsMasterClient && GameStateEvents.IsRunActive)
         {
             if (Input.GetKeyDown(KeyCode.Keypad1))
-                TeleportHandler.TeleportToCampfire(Util.Campfire.Shore);
+                TeleportHandler.TeleportToCampfire(Tests.Campfire.Shore);
             if (Input.GetKeyDown(KeyCode.Keypad2))
-                TeleportHandler.TeleportToCampfire(Util.Campfire.TropicsRoots);
+                TeleportHandler.TeleportToCampfire(Tests.Campfire.TropicsRoots);
             if (Input.GetKeyDown(KeyCode.Keypad3))
-                TeleportHandler.TeleportToCampfire(Util.Campfire.AlpineMesa);
+                TeleportHandler.TeleportToCampfire(Tests.Campfire.AlpineMesa);
             if (Input.GetKeyDown(KeyCode.Keypad4))
-                TeleportHandler.TeleportToCampfire(Util.Campfire.Caldera);
+                TeleportHandler.TeleportToCampfire(Tests.Campfire.Caldera);
             if (Input.GetKeyDown(KeyCode.Keypad5))
-                TeleportHandler.TeleportToCampfire(Util.Campfire.PeakFlagpole);
+                TeleportHandler.TeleportToCampfire(Tests.Campfire.PeakFlagpole);
         }
     }
 #endif
@@ -123,10 +112,7 @@ public partial class Plugin : BaseUnityPlugin
             return;
         
         _netGameStateTracker = new GameObject("NetGameState_Tracker");
-        _netGameStateTracker.AddComponent<PlayerReadyTracker>();
-        _netGameStateTracker.AddComponent<PhotonCallbacks>();
-        var pv = _netGameStateTracker.AddComponent<PhotonView>();
-        pv.ViewID = NetGameStateViewID;
+        NetGameState.ApplyNetworkComponents(_netGameStateTracker, NetGameStateViewID);
     }
     
     private void OnDestroy()
