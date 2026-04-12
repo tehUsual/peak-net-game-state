@@ -39,7 +39,7 @@ public partial class Plugin : BaseUnityPlugin
         
         // === Apply harmony patches
         var harmony = new Harmony("com.github.tehUsual.NetGameState");
-        NetGameState.ApplyPatches(harmony);
+        NGS.ApplyPatches(harmony);
         
         
 #if NETGAMESTATE_STANDALONE
@@ -112,7 +112,7 @@ public partial class Plugin : BaseUnityPlugin
             return;
         
         _netGameStateTracker = new GameObject("NetGameState_Tracker");
-        NetGameState.ApplyNetworkComponents(_netGameStateTracker, NetGameStateViewID);
+        NGS.ApplyNetworkComponents(_netGameStateTracker, NetGameStateViewID);
     }
     
     private void OnDestroy()

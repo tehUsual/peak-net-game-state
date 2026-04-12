@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace NetGameState;
 
-public static class NetGameState
+public static class NGS
 {
     public static void ApplyPatches(Harmony harmony)
     {
@@ -30,9 +30,9 @@ public static class NetGameState
             go.AddComponent<PhotonCallbacks>();
 
         if (!go.TryGetComponent<PhotonView>(out _))
-        {
-            var pv = go.AddComponent<PhotonView>();
-            pv.ViewID = viewID;
-        }
+            go.AddComponent<PhotonView>();
+        
+        var pv = go.AddComponent<PhotonView>();
+        pv.ViewID = viewID;
     }
 }
