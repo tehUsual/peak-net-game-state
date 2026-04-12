@@ -56,7 +56,7 @@ public static class MapObjectPaths
     public const string CampfireCaldera = $"{CampSpawnerCaldera}/Campfire-Kiln";// INFO: might not exist in object tree
     
     
-    // --- Sub Zone: Shore ---
+    // --- Biome Variants: Shore ---
     public const string SubBioShoreDefault = $"{SegShore}/Default";
     public const string SubBioShoreSnakeBeach = $"{SegShore}/SnakeBeach";
     public const string SubBioShoreRedBeach = $"{SegShore}/RedBeach";
@@ -64,7 +64,7 @@ public static class MapObjectPaths
     public const string SubBioShoreJellyHell = $"{SegShore}/JellyHell";
     public const string SubBioShoreBlackSand = $"{SegShore}/BlackSand";
     
-    // --- Sub Zone: Tropics ---
+    // --- Biome Variants: Tropics ---
     public const string SubBioTropicsDefault =  $"{SegTropics}/Default";
     public const string SubBioTropicsLava =  $"{SegTropics}/Lava";
     public const string SubBioTropicsPillars = $"{SegTropics}/Pillars";
@@ -73,7 +73,7 @@ public static class MapObjectPaths
     public const string SubBioTropicsIvy = $"{SegTropics}/Ivy";
     public const string SubBioTropicsSkyJungle = $"{SegTropics}/SkyJungle";
     
-    // --- Sub Zone: Alpine ---
+    // --- Biome Variants: Alpine ---
     public const string SubBioAlpineDefault = $"{SegAlpine}/Default";
     public const string SubBioAlpineLava = $"{SegAlpine}/Lava";
     public const string SubBioAlpineSpiky  = $"{SegAlpine}/Spiky";
@@ -158,34 +158,34 @@ public static class MapObjectPaths
         }
     }
 
-    public static bool TryGetSubZoneRoot(NgsBiomeVariant ngsBiomeVariant, out string subZoneRoot)
+    public static bool TryGetBiomeVariantRoot(NgsBiomeVariant ngsBiomeVariant, out string biomeVariantRoot)
     {
         switch (ngsBiomeVariant)
         {
-            // Shore sub zones
-            case NgsBiomeVariant.Shore_Default: subZoneRoot = SubBioShoreDefault; return true;
-            case NgsBiomeVariant.Shore_SnakeBeach: subZoneRoot = SubBioShoreSnakeBeach; return true;
-            case NgsBiomeVariant.Shore_RedBeach: subZoneRoot = SubBioShoreRedBeach; return true;
-            case NgsBiomeVariant.Shore_BlueBeach: subZoneRoot = SubBioShoreBlueBeach; return true;
-            case NgsBiomeVariant.Shore_JellyHell: subZoneRoot = SubBioShoreJellyHell; return true;
-            case NgsBiomeVariant.Shore_BlackSand: subZoneRoot = SubBioShoreBlackSand; return true;
+            // Shore biome variants
+            case NgsBiomeVariant.Shore_Default: biomeVariantRoot = SubBioShoreDefault; return true;
+            case NgsBiomeVariant.Shore_SnakeBeach: biomeVariantRoot = SubBioShoreSnakeBeach; return true;
+            case NgsBiomeVariant.Shore_RedBeach: biomeVariantRoot = SubBioShoreRedBeach; return true;
+            case NgsBiomeVariant.Shore_BlueBeach: biomeVariantRoot = SubBioShoreBlueBeach; return true;
+            case NgsBiomeVariant.Shore_JellyHell: biomeVariantRoot = SubBioShoreJellyHell; return true;
+            case NgsBiomeVariant.Shore_BlackSand: biomeVariantRoot = SubBioShoreBlackSand; return true;
 
-            // Tropics sub zones
-            case NgsBiomeVariant.Tropics_Default: subZoneRoot = SubBioTropicsDefault; return true;
-            case NgsBiomeVariant.Tropics_Lava: subZoneRoot = SubBioTropicsLava; return true;
-            case NgsBiomeVariant.Tropics_Pillars: subZoneRoot = SubBioTropicsPillars; return true;
-            case NgsBiomeVariant.Tropics_Thorny: subZoneRoot = SubBioTropicsThorny; return true;
-            case NgsBiomeVariant.Tropics_Bombs: subZoneRoot = SubBioTropicsBombs; return true;
-            case NgsBiomeVariant.Tropics_Ivy: subZoneRoot = SubBioTropicsIvy; return true;
-            case NgsBiomeVariant.Tropics_SkyJungle: subZoneRoot = SubBioTropicsSkyJungle; return true;
+            // Tropics biome variants
+            case NgsBiomeVariant.Tropics_Default: biomeVariantRoot = SubBioTropicsDefault; return true;
+            case NgsBiomeVariant.Tropics_Lava: biomeVariantRoot = SubBioTropicsLava; return true;
+            case NgsBiomeVariant.Tropics_Pillars: biomeVariantRoot = SubBioTropicsPillars; return true;
+            case NgsBiomeVariant.Tropics_Thorny: biomeVariantRoot = SubBioTropicsThorny; return true;
+            case NgsBiomeVariant.Tropics_Bombs: biomeVariantRoot = SubBioTropicsBombs; return true;
+            case NgsBiomeVariant.Tropics_Ivy: biomeVariantRoot = SubBioTropicsIvy; return true;
+            case NgsBiomeVariant.Tropics_SkyJungle: biomeVariantRoot = SubBioTropicsSkyJungle; return true;
 
-            // Alpine sub zones
-            case NgsBiomeVariant.Alpine_Default: subZoneRoot = SubBioAlpineDefault; return true;
-            case NgsBiomeVariant.Alpine_Lava: subZoneRoot = SubBioAlpineLava; return true;
-            case NgsBiomeVariant.Alpine_Spiky: subZoneRoot = SubBioAlpineSpiky; return true;
-            case NgsBiomeVariant.Alpine_GeyserHell: subZoneRoot = SubBioAlpineGeyserHell; return true;
+            // Alpine biome variants
+            case NgsBiomeVariant.Alpine_Default: biomeVariantRoot = SubBioAlpineDefault; return true;
+            case NgsBiomeVariant.Alpine_Lava: biomeVariantRoot = SubBioAlpineLava; return true;
+            case NgsBiomeVariant.Alpine_Spiky: biomeVariantRoot = SubBioAlpineSpiky; return true;
+            case NgsBiomeVariant.Alpine_GeyserHell: biomeVariantRoot = SubBioAlpineGeyserHell; return true;
             
-            default: subZoneRoot = ""; return false;
+            default: biomeVariantRoot = ""; return false;
         }
     }
 }

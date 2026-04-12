@@ -55,7 +55,7 @@ public static class MapObjectRefs
     public static Transform? CampfireMesa { get; private set; }
     public static Transform? CampfireCaldera { get; private set; }*/
     
-    // --- Sub Zone: Shore ---
+    // --- Biome Variants: Shore ---
     public static Transform? SubBioShoreDefault { get; private set; }
     public static Transform? SubBioShoreSnakeBeach { get; private set; }
     public static Transform? SubBioShoreRedBeach { get; private set; }
@@ -63,7 +63,7 @@ public static class MapObjectRefs
     public static Transform? SubBioShoreJellyHell { get; private set; }
     public static Transform? SubBioShoreBlackSand { get; private set; }
     
-    // --- Sub Zone: Tropics ---
+    // --- Biome Variants: Tropics ---
     public static Transform? SubBioTropicsDefault { get; private set; }
     public static Transform? SubBioTropicsLava { get; private set; }
     public static Transform? SubBioTropicsPillars { get; private set; }
@@ -72,7 +72,7 @@ public static class MapObjectRefs
     public static Transform? SubBioTropicsIvy { get; private set; }
     public static Transform? SubBioTropicsSkyJungle { get; private set; }
     
-    // --- Sub Zone: Alpine ---
+    // --- Biome Variants: Alpine ---
     public static Transform? SubBioAlpineDefault { get; private set; }
     public static Transform? SubBioAlpineLava { get; private set; }
     public static Transform? SubBioAlpineSpiky { get; private set; }
@@ -136,7 +136,7 @@ public static class MapObjectRefs
         CampfireMesa = Find(MapObjectPaths.CampfireMesa);
         CampfireCaldera = Find(MapObjectPaths.CampfireCaldera);*/
         
-        // Sub Zone: Shore
+        // Biome Variants: Shore
         SubBioShoreDefault = Find(MapObjectPaths.SubBioShoreDefault);
         SubBioShoreSnakeBeach = Find(MapObjectPaths.SubBioShoreSnakeBeach);
         SubBioShoreRedBeach = Find(MapObjectPaths.SubBioShoreRedBeach);
@@ -144,7 +144,7 @@ public static class MapObjectRefs
         SubBioShoreJellyHell = Find(MapObjectPaths.SubBioShoreJellyHell);
         SubBioShoreBlackSand = Find(MapObjectPaths.SubBioShoreBlackSand);
         
-        // Sub Zone: Tropics
+        // Biome Variantse: Tropics
         SubBioTropicsDefault = Find(MapObjectPaths.SubBioTropicsDefault);
         SubBioTropicsLava = Find(MapObjectPaths.SubBioTropicsLava);
         SubBioTropicsPillars = Find(MapObjectPaths.SubBioTropicsPillars);
@@ -153,7 +153,7 @@ public static class MapObjectRefs
         SubBioTropicsIvy = Find(MapObjectPaths.SubBioTropicsIvy);
         SubBioTropicsSkyJungle = Find(MapObjectPaths.SubBioTropicsSkyJungle);
         
-        // Sub Zone: Alpine
+        // Biome Variants: Alpine
         SubBioAlpineDefault = Find(MapObjectPaths.SubBioAlpineDefault);
         SubBioAlpineLava = Find(MapObjectPaths.SubBioAlpineLava);
         SubBioAlpineSpiky = Find(MapObjectPaths.SubBioAlpineSpiky);

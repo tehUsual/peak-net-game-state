@@ -22,7 +22,7 @@ public static class SegmentManager
     public static event Action<SegmentInfo>? OnSegmentLoadComplete;
 
     public static readonly SegmentInfo[] CurrentRunSegments = new SegmentInfo[Enum.GetValues(typeof(Segment)).Length];
-    public static readonly Dictionary<NgsBiome, NgsBiomeVariant> CurrentRunSubZones = [];
+    public static readonly Dictionary<NgsBiome, NgsBiomeVariant> CurrentRunBiomeVariants = [];
 
     public static NgsSegment CurrentNgsSegment { get; private set; } =  NgsSegment.Unknown;
     public static NgsBiome CurrentNgsBiome { get; private set; } = NgsBiome.Unknown;
@@ -58,7 +58,7 @@ public static class SegmentManager
             CurrentRunSegments[i] = new SegmentInfo(NgsSegment.Unknown, NgsBiome.Unknown, NgsBiomeVariant.Unknown);
         }
 
-        CurrentRunSubZones.Clear();
+        CurrentRunBiomeVariants.Clear();
         
         IsAlpine = false;
         IsTropics = false;
@@ -94,7 +94,7 @@ public static class SegmentManager
             NgsBiomeVariant ngsBiomeVariant = NgsTypes.NgsBiomeToNgsBiomeVariant(ngsBiome);
             Transform? segTansform = GetBiomeSegment(ngsBiome);
             CurrentRunSegments[pair.index] = new SegmentInfo(ngsSegment, ngsBiome, ngsBiomeVariant, segTansform);
-            CurrentRunSubZones[ngsBiome] = ngsBiomeVariant;
+            CurrentRunBiomeVariants[ngsBiome] = ngsBiomeVariant;
 
             if (ngsBiome == NgsBiome.Alpine)
                 IsAlpine = true;

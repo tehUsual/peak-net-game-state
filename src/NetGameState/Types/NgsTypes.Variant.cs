@@ -25,11 +25,11 @@ public static partial class NgsTypes
         .ToArray();
     
     
-    private static NgsBiomeVariant GetActiveBiomeVariant<T>(Transform? root, T[] biomeVariants, string zoneName)
+    private static NgsBiomeVariant GetActiveBiomeVariant<T>(Transform? root, T[] biomeVariants, string biomeName)
     {
         if (ReferenceEquals(root, null))
         {
-            LogProvider.Log?.LogColorW($"Could not find '{zoneName}' Segment");
+            LogProvider.Log?.LogColorW($"Could not find '{biomeName}' Segment");
             return NgsBiomeVariant.Unknown;
         }
 
@@ -39,7 +39,7 @@ public static partial class NgsTypes
                 return (NgsBiomeVariant)Convert.ToInt32(biomeVariants);
         }
         
-        LogProvider.Log?.LogColorW($"Could not find sub-zone for '{zoneName}'");
+        LogProvider.Log?.LogColorW($"Could not find variant for '{biomeName}'");
         return NgsBiomeVariant.Unknown;
     }
     
