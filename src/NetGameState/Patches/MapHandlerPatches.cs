@@ -1,5 +1,5 @@
 using HarmonyLib;
-using NetGameState.LevelProgression;
+using NetGameState.Segments;
 
 namespace NetGameState.Patches;
 

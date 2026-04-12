@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using ConsoleTools;
-using NetGameState.Events;
+using NetGameState.GameState;
 using NetGameState.Logging;
 using Photon.Pun;
 using UnityEngine;

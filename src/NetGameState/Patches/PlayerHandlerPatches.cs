@@ -1,5 +1,5 @@
 using HarmonyLib;
-using NetGameState.Events;
+using NetGameState.GameState;
 
 namespace NetGameState.Patches;
 

@@ -1,23 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NetGameState.Events;
+using NetGameState.GameState;
 using NetGameState.Types;
-using NetGameState.LevelStructure;
+using NetGameState.MapRefs;
 using UnityEngine;
 
-namespace NetGameState.LevelProgression;
+namespace NetGameState.Segments;
 
 public static class SegmentManager
 {
-    public readonly struct SegmentInfo(NgsSegment ngsSegment, NgsBiome biome, NgsBiomeVariant ngsBiomeVariant, Transform? segment = null)
-    {
-        public readonly NgsSegment NgsSegment = ngsSegment;
-        public readonly NgsBiome NgsBiome = biome;
-        public readonly NgsBiomeVariant NgsBiomeVariant = ngsBiomeVariant;
-        public readonly Transform? SegmentTansform = segment;
-    }
-
     public static event Action<SegmentInfo, SegmentInfo>? OnSegmentLoading;
     public static event Action<SegmentInfo>? OnSegmentLoadComplete;
 

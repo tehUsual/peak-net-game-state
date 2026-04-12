@@ -3,7 +3,7 @@ using BepInEx;
 using ConsoleTools.Patches;
 using ConsoleTools;
 using HarmonyLib;
-using NetGameState.Events;
+using NetGameState.GameState;
 using NetGameState.Logging;
 using NetGameState.Tests;
 using Photon.Pun;

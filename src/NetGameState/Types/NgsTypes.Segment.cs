@@ -1,6 +1,5 @@
 namespace NetGameState.Types;
 
-
 public static partial class NgsTypes
 {
     public static NgsSegment SegmentToNgsSegment(Segment segment)

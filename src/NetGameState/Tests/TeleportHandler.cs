@@ -1,7 +1,7 @@
 using System;
-using NetGameState.Events;
-using NetGameState.LevelProgression;
-using NetGameState.LevelStructure;
+using NetGameState.GameState;
+using NetGameState.Segments;
+using NetGameState.MapRefs;
 using Photon.Pun;
 using UnityEngine;
 

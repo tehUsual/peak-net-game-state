@@ -1,8 +1,8 @@
-using NetGameState.Events;
+using NetGameState.GameState;
 using Photon.Pun;
 
 
-namespace NetGameState.Listeners;
+namespace NetGameState.Network;
 
 public class PhotonCallbacks : MonoBehaviourPunCallbacks
 {

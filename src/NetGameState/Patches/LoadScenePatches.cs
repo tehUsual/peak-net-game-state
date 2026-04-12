@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using HarmonyLib;
-using NetGameState.Events;
+using NetGameState.GameState;
 using NetGameState.Network;
 using Photon.Pun;
 using UnityEngine;

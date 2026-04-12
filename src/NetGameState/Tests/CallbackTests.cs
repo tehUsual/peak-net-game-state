@@ -1,6 +1,6 @@
 using ConsoleTools;
-using NetGameState.Events;
-using NetGameState.LevelProgression;
+using NetGameState.GameState;
+using NetGameState.Segments;
 using NetGameState.Logging;
 using Photon.Pun;
 
@@ -182,7 +182,7 @@ internal static class CallbackTests
 
         for (int i = 0; i < SegmentManager.CurrentRunSegments.Length; i++)
         {
-            SegmentManager.SegmentInfo segInfo = SegmentManager.CurrentRunSegments[i];
+            SegmentInfo segInfo = SegmentManager.CurrentRunSegments[i];
             LogProvider.Log?.LogColorS($"Segment [{i+1}] is: [{segInfo.NgsSegment.ToString()}.{segInfo.NgsBiome.ToString()}.{segInfo.NgsBiomeVariant.ToString()}]");
         }
     }
@@ -195,13 +195,13 @@ internal static class CallbackTests
     }
 
     // ==== Callbacks - Segments ====================================
-    private static void OnSegmentLoading(SegmentManager.SegmentInfo prevSeg, SegmentManager.SegmentInfo nextSeg)
+    private static void OnSegmentLoading(SegmentInfo prevSeg, SegmentInfo nextSeg)
     {
         LogProvider.Log?.LogColor($"Segment loading: [{prevSeg.NgsSegment.ToString()}.{prevSeg.NgsBiome.ToString()}.{prevSeg.NgsBiomeVariant.ToString()}]" +
                                   $" -> [{nextSeg.NgsSegment.ToString()}.{nextSeg.NgsBiome.ToString()}.{nextSeg.NgsBiomeVariant.ToString()}]");
     }
 
-    private static void OnSegmentLoadComplete(SegmentManager.SegmentInfo seg)
+    private static void OnSegmentLoadComplete(SegmentInfo seg)
     {
         LogProvider.Log?.LogColor($"Segment loaded: [{seg.NgsSegment.ToString()}.{seg.NgsBiome.ToString()}.{seg.NgsBiomeVariant.ToString()}]");
     }

@@ -1,12 +1,9 @@
-using System;
-using System.Reflection;
 using ConsoleTools;
 using UnityEngine;
-using System.Linq;
-using NetGameState.Events;
+using NetGameState.GameState;
 using NetGameState.Logging;
 
-namespace NetGameState.LevelStructure;
+namespace NetGameState.MapRefs;
 
 public static class MapObjectRefs
 {

@@ -1,6 +1,6 @@
 using NetGameState.Types;
 
-namespace NetGameState.LevelStructure;
+namespace NetGameState.MapRefs;
 
 public static class MapObjectPaths
 {

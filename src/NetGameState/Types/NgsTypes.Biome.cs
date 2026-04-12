@@ -1,7 +1,6 @@
-using NetGameState.LevelStructure;
+using NetGameState.MapRefs;
 
 namespace NetGameState.Types;
-
 
 public static partial class NgsTypes
 {

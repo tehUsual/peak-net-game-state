@@ -1,7 +1,5 @@
-using ConsoleTools;
 using HarmonyLib;
-using NetGameState.Events;
-using NetGameState.Logging;
+using NetGameState.GameState;
 using UnityEngine.SceneManagement;
 
 namespace NetGameState.Patches;
